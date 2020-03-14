@@ -1,0 +1,32 @@
+build:
+  args:
+    # ---- user ----------------------------------------------------------------
+    USER_NAME: "user"
+    USER_PASSWORD: "Vh5kPbnwBV"
+    GRANT_SUDO: "TRUE"
+    USER_ID: "$(id -u)"
+    GROUP_ID: "$(id -g)"
+    # ---- languages -----------------------------------------------------------
+    LANG_C: "TRUE"
+    LANG_FORTRAN: "TRUE"
+    LANG_PYTHON3: "TRUE"
+    LANG_JULIA: "TRUE"
+    LANG_R: "TRUE"
+    LANG_LATEX: "TRUE"
+    # ---- libraries -----------------------------------------------------------
+    LIB_MATPLOTLIB : "TRUE"
+    LIB_LINALG : "TRUE"
+    LIB_OPENMPI: "TRUE"
+    # ---- dev enviroment ------------------------------------------------------
+    DEV_JUPYTER: "TRUE"
+    DEV_CLI: "TRUE"
+    # ---- package managers ----------------------------------------------------
+    PKGM_SPACK: "TRUE"
+mounts:
+  - type: "bind"
+    hostPath: "jupyter_config_dir"
+    containerPath: "/home/user/.jupyter"
+files:
+  containerRoot: "/home/user"
+flags:
+  userns: keep-id
