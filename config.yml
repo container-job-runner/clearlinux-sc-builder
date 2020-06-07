@@ -7,21 +7,21 @@ build:
     USER_ID: "$(id -u)"
     GROUP_ID: "$(id -g)"
     # ---- languages -----------------------------------------------------------
-    LANG_C: "TRUE"
-    LANG_FORTRAN: "TRUE"
-    LANG_PYTHON3: "TRUE"
-    LANG_JULIA: "TRUE"
-    LANG_R: "TRUE"
-    LANG_LATEX: "TRUE"
+    LANG_C: "FALSE"
+    LANG_FORTRAN: "FALSE"
+    LANG_PYTHON3: "FALSE"
+    LANG_JULIA: "FALSE"
+    LANG_R: "FALSE"
+    LANG_LATEX: "FALSE"
     # ---- libraries -----------------------------------------------------------
-    LIB_MATPLOTLIB : "TRUE"
-    LIB_LINALG : "TRUE"
-    LIB_OPENMPI: "TRUE"
+    LIB_MATPLOTLIB : "FALSE"
+    LIB_LINALG : "FALSE"
+    LIB_OPENMPI: "FALSE"
     # ---- dev enviroment ------------------------------------------------------
-    DEV_JUPYTER: "TRUE"
-    DEV_CLI: "TRUE"
+    DEV_JUPYTER: "FALSE"
+    DEV_CLI: "FALSE"
     # ---- package managers ----------------------------------------------------
-    PKGM_SPACK: "TRUE"
+    PKGM_SPACK: "FALSE"
 mounts:
   - type: "bind"
     hostPath: "jupyter_config_dir"
