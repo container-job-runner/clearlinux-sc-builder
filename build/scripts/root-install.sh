@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # -- ROOT INSTALL SCRIPT -------------------------------------------------------
-# Installs dependencies for Fedora using the dnf package manager and additional
-# manual installations. This script installs all the dependancies as root user.
+# Installs dependencies for Clear linux using the swupd package manager and 
+# additional manual installations. This script will be executed by root.
 # It responds to the following environmental variables:
 #
 # ---- languages ---------------------------------------------------------------
@@ -22,16 +22,16 @@
 #                             all select languages.
 #
 # NOTE: To add extra dependancies for any language, library, or development
-# environment that can be installed with dnf simply add an entry to the arrays
+# environment that can be installed with swupd simply add an entry to the arrays
 # in 1.1-1.3. More sophisticated dependancies can be placed in the script
 # root_install_extra.sh or written within this bash script.
 # ------------------------------------------------------------------------------
 
 pkg_manager="swupd"
 
-# == STEP 1: Install DNF packages ==============================================
+# == STEP 1: Install packages ==================================================
 
-# -- 1.1 DNF Packages: languages -----------------------------------------------
+# -- 1.1 Packages: languages ---------------------------------------------------
 pkg_lang_c=('c-basic' 'gdb');
 pkg_lang_fortran=('c-basic' 'gdb');
 pkg_lang_python3=('python3-basic' 'python-data-science')
@@ -39,17 +39,17 @@ pkg_lang_julia=('wget')
 pkg_lang_R=('R-basic' 'R-extras')
 pkg_lang_latex=('texlive')
 
-# -- 1.2 DNF Packages: libraries  ----------------------------------------------
+# -- 1.2 Packages: libraries  -------------------------------------------------
 pkg_lib_linAlg=('openblas' 'devpkg-fftw')
 pkg_lib_openMPI=('openmpi')
 pkg_lib_matPlotLib=('python-data-science')
 pkg_lib_x11=('x11-tools')
 
-# -- 1.3 DNF Packages: development environments   ------------------------------
+# -- 1.3 Packages: development environments   ----------------------------------
 pkg_dev_jupyter=('nodejs-basic' 'jupyter')
 pkg_dev_cli=('vim' 'git' 'tmux' 'emacs')
 
-# -- Add packages to dnfPkg array ----------------------------------------------
+# -- Add packages to pkgs array ------------------------------------------------
 declare -a pkgs=('sudo' 'sysadmin-basic'); # basic packages required for usage
 
 # ----> languages
