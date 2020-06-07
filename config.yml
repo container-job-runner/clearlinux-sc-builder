@@ -19,6 +19,7 @@ build:
     LIB_MATPLOTLIB : "FALSE"
     LIB_LINALG : "FALSE"
     LIB_OPENMPI: "FALSE"
+    LIB_X11: "FALSE"
     # ---- dev enviroment ------------------------------------------------------
     DEV_JUPYTER: "FALSE"
     DEV_CLI: "FALSE"
