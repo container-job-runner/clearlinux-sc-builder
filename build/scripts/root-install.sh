@@ -109,9 +109,9 @@ if [ "$LANG_JULIA" = "TRUE" ] ; then
   mkdir -p /opt
   mkdir -p /usr/local/bin/
   cd /opt
-  wget https://julialang-s3.julialang.org/bin/linux/x64/1.3/julia-1.3.1-linux-x86_64.tar.gz
-  tar -xzf julia-1.3.1-linux-x86_64.tar.gz
-  ln -s /opt/julia-1.3.1/bin/julia /usr/local/bin/julia
+  wget https://julialang-s3.julialang.org/bin/linux/x64/1.4/julia-1.4.2-linux-x86_64.tar.gz
+  tar -xzf julia-1.4.2-linux-x86_64.tar.gz
+  ln -s /opt/julia-1.4.2/bin/julia /usr/local/bin/julia
 fi
 
 # -----> Jupyter
