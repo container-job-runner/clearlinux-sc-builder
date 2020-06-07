@@ -117,6 +117,10 @@ fi
 # -----> Jupyter
 if [ "$DEV_JUPYTER" = "TRUE" ] ; then
   pip3 install jupyterlab # Jupyter Lab
+  # --> install atom dark theme -------------------------------------------------
+  cd /opt
+  git clone https://github.com/container-job-runner/jupyter-atom-theme.git
+  jupyter labextension install jupyter-atom-theme
   # --> matplotlib Widgets for JupiterLab (https://github.com/matplotlib/jupyter-matplotlib)
   if [ "$LIB_MATPLOTLIB" = "TRUE" ] ; then
     pip3 install ipympl
