@@ -1,11 +1,13 @@
 build:
+  args-dynamic:
+    # ---- user ----------------------------------------------------------------
+    USER_ID: "$(id -u)"
+    GROUP_ID: "$(id -g)"
   args:
     # ---- user ----------------------------------------------------------------
     USER_NAME: "user"
     USER_PASSWORD: "Vh5kPbnwBV"
     GRANT_SUDO: "TRUE"
-    USER_ID: "$(id -u)"
-    GROUP_ID: "$(id -g)"
     # ---- languages -----------------------------------------------------------
     LANG_C: "FALSE"
     LANG_FORTRAN: "FALSE"
