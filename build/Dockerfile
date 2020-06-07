@@ -47,18 +47,13 @@ RUN chmod +x user-install.sh user-install-extra.sh
 # -- install user dependencies -------------------------------------------------
 RUN ./user-install.sh
 
-# #-- install extra root & user dependencies here (Prevents full rebuild)--------
-# USER root
-# WORKDIR /
-# COPY build-scripts/root_install_extra.sh /build-scripts
-# RUN chmod +x /build-scripts/root_install_extra.sh
-# RUN /build-scripts/root_install_extra.sh
-#
-# WORKDIR "/home/$USER_NAME"
-# COPY build-scripts/user_install_extra.sh .build-scripts
-# RUN chown -R $USER_NAME: .build-scripts
-# USER $USER_NAME
-# RUN chmod +x .build-scripts/user_install_extra.sh
-# RUN .build-scripts/user_install_extra.sh
+# -- install extra root dependencies (placed here to prevent full rebuild) -----
+USER 0
+RUN /opt/build-scripts/root-install-extra.sh
 
-ENTRYPOINT ["bash", "-c"]
+# -- install extra user dependencies (placed here to prevent full rebuild) -----
+USER $USER_NAME
+RUN /home/$USER_NAME/.build-scripts/user-install-extra.sh
+
+WORKDIR "/home/$USER_NAME"
+ENTRYPOINT ["bash", "-l", "-c"]
