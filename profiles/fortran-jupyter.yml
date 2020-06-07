@@ -1,0 +1,10 @@
+build:
+  args:
+    # ---- languages -----------------------------------------------------------
+    LANG_FORTRAN: "TRUE"
+    # ---- libraries -----------------------------------------------------------
+    LIB_LINALG : "TRUE"
+    LIB_OPENMPI: "TRUE"
+    # ---- dev enviroment ------------------------------------------------------
+    DEV_JUPYTER: "TRUE"
+    DEV_CLI: "TRUE"
