@@ -27,7 +27,7 @@ build:
     PKGM_SPACK: "FALSE"
 mounts:
   - type: "bind"
-    hostPath: "jupyter_config_dir"
+    hostPath: "config/jupyter"
     containerPath: "/home/user/.jupyter"
 files:
   containerRoot: "/home/user"
