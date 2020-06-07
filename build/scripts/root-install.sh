@@ -42,6 +42,7 @@ pkg_lang_latex=('texlive')
 # -- 1.2 DNF Packages: libraries  ----------------------------------------------
 pkg_lib_linAlg=('openblas' 'devpkg-fftw')
 pkg_lib_openMPI=('openmpi')
+pkg_lib_matPlotLib=('python-data-science')
 pkg_lib_x11=('x11-tools')
 
 # -- 1.3 DNF Packages: development environments   ------------------------------
@@ -78,6 +79,9 @@ if [ "$LIB_LINALG" = "TRUE" ] ; then
 
 if [ "$LIB_OPENMPI" = "TRUE" ] ; then
   pkgs=("${pkgs[@]}" "${pkg_lib_openMPI[@]}") ; fi
+
+if [ "$LIB_MATPLOTLIB" = "TRUE" ] ; then
+  pkgs=("${pkgs[@]}" "${pkg_lib_matPlotLib[@]}") ; fi
 
 if [ "$LIB_X11" = "TRUE" ] ; then
   pkgs=("${pkgs[@]}" "${pkg_lib_x11[@]}") ; fi
