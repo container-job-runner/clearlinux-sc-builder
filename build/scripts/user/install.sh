@@ -23,6 +23,10 @@
 # user_install_extra.sh or written directly within this bash script.
 # ------------------------------------------------------------------------------
 
+if [ "$LANG_JULIA" = "TRUE" ] && [ "$EMPTYHOME" = "TRUE" ] ; then
+    EXPORT JULIA_DEPOT_PATH=/opt/shared/julia-depot # change default package install directory
+fi
+
 # Certain Julia Packages do not install as root. Install them here instead
 if [ "$LANG_JULIA" = "TRUE" ] ; then
     # ----> plotters
