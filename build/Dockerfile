@@ -18,6 +18,8 @@ ARG DEV_THEIA
 ARG DEV_CLI
 # ----> ARGS: package managers
 ARG PKGM_SPACK
+# ----> ARGS: additional options
+ARG EMPTYHOME
 
 # -- copy root install files to /opt/build-scripts -----------------------------
 RUN mkdir -p /opt/build-scripts
