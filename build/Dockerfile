@@ -42,12 +42,12 @@ RUN /opt/build-scripts/user-create.sh
 # -- copy user install scripts to ~/.build-scripts -----------------------------
 RUN mkdir "/home/$USER_NAME/.build-scripts"
 WORKDIR "/home/$USER_NAME/.build-scripts"
-COPY scripts/user-install.sh scripts/user-install-extra.sh ./
-RUN chown $USER_ID:$GROUP_ID user-install.sh user-install-extra.sh
+COPY scripts/user/ ./
+RUN chown $USER_ID:$GROUP_ID install.sh install-extra.sh
 USER $USER_NAME
-RUN chmod +x user-install.sh user-install-extra.sh
+RUN chmod +x install.sh install-extra.sh
 # -- install user dependencies -------------------------------------------------
-RUN ./user-install.sh
+RUN ./install.sh
 
 # -- install extra root dependencies (placed here to prevent full rebuild) -----
 USER 0
@@ -55,7 +55,7 @@ RUN /opt/build-scripts/install-extra.sh
 
 # -- install extra user dependencies (placed here to prevent full rebuild) -----
 USER $USER_NAME
-RUN /home/$USER_NAME/.build-scripts/user-install-extra.sh
+RUN /home/$USER_NAME/.build-scripts/install-extra.sh
 
 WORKDIR "/home/$USER_NAME"
 ENTRYPOINT ["bash", "-l", "-c"]
