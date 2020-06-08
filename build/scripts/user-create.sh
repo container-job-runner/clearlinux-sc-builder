@@ -10,7 +10,7 @@ EOF
 swupd bundle-add sudo
 
 # -- Add User-------------------------------------------------------------------
-if [ -z "$USER_ID" ] || [ -z "GROUP_ID" ] ; then
+if [ -z "$USER_ID" ] || [ -z "$GROUP_ID" ] ; then
   useradd -m -l -s /bin/bash $USER_NAME
 else
   groupadd -o --gid $GROUP_ID $USER_NAME
@@ -24,4 +24,9 @@ fi
 # -- Grant sudo ----------------------------------------------------------------
 if [ "$GRANT_SUDO" = "TRUE" ] ; then
   (usermod -aG wheel $USER_NAME)
+fi
+
+# -- add user to shared group --------------------------------------------------
+if [ "$EMPTYHOME" = "TRUE" ] ; then
+    usermod -aG shared $USER_NAME
 fi
