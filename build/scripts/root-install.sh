@@ -5,7 +5,7 @@
 # additional manual installations. This script will be executed by root.
 # It responds to the following environmental variables:
 #
-# ---- languages ---------------------------------------------------------------
+# ---- Languages ---------------------------------------------------------------
 #     LANG_C          TRUE => C language packages installed
 #     LANG_FORTRAN    TRUE => Fortran language installed
 #     LANG_PYTHON3    TRUE => Python3 language installed
@@ -13,13 +13,18 @@
 #     LANG_R          TRUE => R languag installed
 #     LANG_LATEX      TRUE => Latex installed
 #
-# ---- libraries ---------------------------------------------------------------
+# ---- Libraries ---------------------------------------------------------------
 #     LIB_LINALG      TRUE => Linear algebra libraries BLAS, LAPACK and FFTW
 #     LIB_OPENMPI     TRUE => openmpi (loaded using module load mpi)
 #
 # ---- Dev Environemnts --------------------------------------------------------
 #     DEV_JUPYTER     TRUE => Jupyter Notebook And Jupyter Lab with support for
 #                             all select languages.
+#
+# ---- Additional options ------------------------------------------------------
+#      EMPTYHOME      TRUE => directories will be created for storing program
+#                             data in the /opt/shared directory instead of ~/
+#                             and a new group will be created for ownership.
 #
 # NOTE: To add extra dependancies for any language, library, or development
 # environment that can be installed with swupd simply add an entry to the arrays
@@ -103,6 +108,18 @@ echo "$pkg_manager bundle-add ${!pkgsUniq[@]}"
 eval $pkg_manager bundle-add ${!pkgsUniq[@]}
 
 # == STEP 2: Install Additional Packages =======================================
+
+# -- create folder and associated group for storing app files ------------------
+# This allows for rapid user id manipylation using usermod, since files are not
+# stored in home directory
+if [ "$EMPTYHOME" = "TRUE" ] ; then
+    mkdir -p /opt/shared/
+    groupadd shared
+    chgrp -R shared /opt/shared/
+    chmod -R 2775 /opt/shared/
+    # directory that will be used in place of ~/.julia
+    mkdir -p /opt/shared/julia-depot
+fi
 
 # -- Julia ---------------------------------------------------------------------
 if [ "$LANG_JULIA" = "TRUE" ] ; then
