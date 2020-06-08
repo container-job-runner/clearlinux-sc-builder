@@ -22,12 +22,12 @@ ARG PKGM_SPACK
 ARG EMPTYHOME
 
 # -- copy root install files to /opt/build-scripts -----------------------------
-RUN mkdir -p /opt/build-scripts
+RUN mkdir -p /opt/build-scripts/
 WORKDIR /opt/build-scripts
-COPY scripts/root-install.sh scripts/root-install-extra.sh scripts/user-create.sh ./
-RUN chmod +x root-install.sh root-install-extra.sh user-create.sh
+COPY scripts/root/ ./
+RUN chmod +x install.sh install-extra.sh user-create.sh 
 # -- install root dependencies -------------------------------------------------
-RUN ./root-install.sh
+RUN ./install.sh
 
 # ----> ARGS: user (placed here to prevent full rebuild)
 ARG USER_NAME=user
@@ -51,7 +51,7 @@ RUN ./user-install.sh
 
 # -- install extra root dependencies (placed here to prevent full rebuild) -----
 USER 0
-RUN /opt/build-scripts/root-install-extra.sh
+RUN /opt/build-scripts/install-extra.sh
 
 # -- install extra user dependencies (placed here to prevent full rebuild) -----
 USER $USER_NAME
