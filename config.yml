@@ -23,6 +23,7 @@ build:
     LIB_X11: "FALSE"
     # ---- dev enviroment ------------------------------------------------------
     DEV_JUPYTER: "FALSE"
+    DEV_THEIA: "FALSE"
     DEV_CLI: "FALSE"
     # ---- package managers ----------------------------------------------------
     PKGM_SPACK: "FALSE"
