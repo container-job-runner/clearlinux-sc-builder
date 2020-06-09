@@ -51,7 +51,8 @@ pkg_lib_matPlotLib=('python-data-science')
 pkg_lib_x11=('x11-tools')
 
 # -- 1.3 Packages: development environments   ----------------------------------
-pkg_dev_jupyter=('nodejs-basic' 'jupyter')
+pkg_dev_jupyter=('jupyter')
+pkg_dev_theia=('wget' 'musl')
 pkg_dev_cli=('vim' 'git' 'tmux' 'emacs')
 
 # -- Add packages to pkgs array ------------------------------------------------
@@ -96,6 +97,9 @@ if [ "$LIB_X11" = "TRUE" ] ; then
 if [ "$DEV_JUPYTER" = "TRUE" ] ; then
   pkgs=("${pkgs[@]}" "${pkg_dev_jupyter[@]}") ; fi
 
+if [ "$DEV_THEIA" = "TRUE" ] ; then
+  pkgs=("${pkgs[@]}" "${pkg_dev_theia[@]}") ; fi
+
 if [ "$DEV_CLI" = "TRUE" ] ; then
   pkgs=("${pkgs[@]}" "${pkg_dev_cli[@]}") ; fi
 
@@ -110,11 +114,12 @@ eval $pkg_manager bundle-add ${!pkgsUniq[@]}
 # == STEP 2: Install Additional Packages =======================================
 
 # -- create folder and associated group for storing app files ------------------
-# This allows for rapid user id manipylation using usermod, since files are not
+# This allows for rapid user id manipulation using usermod, since files are not
 # stored in home directory
 if [ "$EMPTYHOME" = "TRUE" ] ; then
     mkdir -p /opt/shared/
     mkdir -p /opt/shared/julia-depot # directory that will be used in place of ~/.julia
+    mkdir -p /opt/shared/{nvm,npm} # directory that will be used in place of ~/.nvm and ~/.npm
     groupadd shared
     chgrp -R shared /opt/shared/
     chmod -R 2775 /opt/shared/
@@ -131,10 +136,10 @@ if [ "$LANG_JULIA" = "TRUE" ] ; then
   rm julia-1.4.2-linux-x86_64.tar.gz
 fi
 
-# -----> Jupyter
+# -- Jupyter -------------------------------------------------------------------
 if [ "$DEV_JUPYTER" = "TRUE" ] ; then
   pip3 install jupyterlab # Jupyter Lab
-  # --> install atom dark theme -------------------------------------------------
+  # --> install atom dark theme (https://github.com/container-job-runner/jupyter-atom-theme.git)
   cd /opt
   git clone https://github.com/container-job-runner/jupyter-atom-theme.git
   jupyter labextension install jupyter-atom-theme
@@ -164,4 +169,17 @@ if [ "$DEV_JUPYTER" = "TRUE" ] ; then
   #   # 2. lfortran:          https://lfortran.org/ https://docs.lfortran.org/installation/
   #   # 3. fortran_magic      https://github.com/mgaitan/fortran_magic
   # fi
+fi
+
+# -- Theia ---------------------------------------------------------------------
+if [ "$DEV_THEIA" = "TRUE" ] ; then
+    # add symbolic link for standard muscl library location, then install python2 libs
+    # for the moment, it appers that python2-basic must be installed after creating symbolic link or theia will start with error
+    ln -s /usr/lib64/musl/lib64/libc.so /lib/libc.musl-x86_64.so.1
+    swupd bundle-add python2-basic
+    # --> create launcher
+    THEIA_INSTALL_DIR=/opt/theia # assumed location of theia
+    mkdir -p /usr/local/bin/
+    echo -e '#!/bin/bash\nyarn --cwd '$THEIA_INSTALL_DIR' start $@' > /usr/local/bin/theia
+    chmod a+x "/usr/local/bin/theia"
 fi
