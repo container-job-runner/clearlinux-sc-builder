@@ -31,6 +31,9 @@ mounts:
   - type: "bind"
     hostPath: "config/jupyter"
     containerPath: "/home/user/.jupyter"
+  - type: "bind"
+    hostPath: "config/theia"
+    containerPath: "/home/user/.theia"
 files:
   containerRoot: "/home/user"
 flags:
