@@ -1,3 +1,17 @@
+# == Theia build stage =========================================================
+FROM node:dubnium-alpine as theia_builder
+ARG DEV_THEIA
+RUN apk add python2 build-base
+RUN mkdir /root/theia
+WORKDIR /root/theia
+RUN wget https://github.com/container-job-runner/stack-config-files/releases/download/0.1.1-alpha/package.json
+RUN if [ "$DEV_THEIA" = "TRUE" ] ; then \
+    yarn ; \
+    yarn prepare ; \
+    yarn build ; \
+    fi
+
+# == Clear Linux Dockerfile =====================================================
 FROM clearlinux:latest
 
 # ----> ARGS: languages
@@ -28,6 +42,7 @@ COPY scripts/root/ ./
 RUN chmod -R +x ./ 
 # -- install root dependencies -------------------------------------------------
 RUN ./install.sh
+COPY --from=theia_builder /root/theia /opt/theia
 
 # ----> ARGS: user (placed here to prevent full rebuild)
 ARG USER_NAME=user
