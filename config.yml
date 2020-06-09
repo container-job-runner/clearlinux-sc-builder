@@ -7,6 +7,7 @@ build:
     # ---- user ----------------------------------------------------------------
     USER_NAME: "user"
     USER_PASSWORD: "Vh5kPbnwBV"
+    ROOT_PASSWORD: "mZFxFcAt62"
     GRANT_SUDO: "TRUE"
     # ---- languages -----------------------------------------------------------
     LANG_C: "FALSE"
