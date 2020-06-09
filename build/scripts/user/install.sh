@@ -38,6 +38,12 @@ if [ "$LANG_JULIA" = "TRUE" ] ; then
     fi
     julia -e 'import Pkg; Pkg.add("GR"); using GR'
     julia -e 'import Pkg; Pkg.add("Plots"); using Plots'
+
+    # ----> fix permissions for non-local folders (see: https://github.com/JuliaLang/julia/issues/12876)
+    if [ "$EMPTYHOME" = "TRUE" ] ; then
+        chmod -R g+w $JULIA_DEPOT_PATH
+    fi
+]
 fi
 
 # -- Juputer Kernels -----------------------------------------------------------
