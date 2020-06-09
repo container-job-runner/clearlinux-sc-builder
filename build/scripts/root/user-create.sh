@@ -27,3 +27,12 @@ fi
 if [ "$EMPTYHOME" = "TRUE" ] ; then
     usermod -aG shared $USER_NAME
 fi
+
+# -- add passwordless sudo for special entrypoint  ------------------------------
+if [ "$DYNAMIC_USERMOD" = "TRUE" ] ; then
+    # allow user to run entryscript with passwordless sudo and full environment
+    ENTRYSCRIPT="/opt/build-scripts/usermod-entrypoint.sh"
+    SUDOCONFIG="Defaults!"$ENTRYSCRIPT" setenv\n$USER_NAME ALL=(root) NOPASSWD: $ENTRYSCRIPT"
+    echo -e $SUDOCONFIG >> /usr/share/defaults/sudo/sudoers.d/config
+    # note: clear linux stores sudo config in  "/usr/share/defaults/sudo/" instead of "/etc" 
+fi
