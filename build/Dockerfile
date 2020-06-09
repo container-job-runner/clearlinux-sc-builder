@@ -31,10 +31,11 @@ RUN ./install.sh
 
 # ----> ARGS: user (placed here to prevent full rebuild)
 ARG USER_NAME=user
-ARG USER_PASSWORD=password
+ARG USER_PASSWORD
 ARG GRANT_SUDO=false
 ARG USER_ID
 ARG GROUP_ID
+ARG ROOT_PASSWORD
 ARG DYNAMIC_USERMOD
 
 # -- Generate restricted user account ------------------------------------------
