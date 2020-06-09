@@ -18,16 +18,20 @@
 # ---- Dev Environemnts --------------------------------------------------------
 #     DEV_JUPYTER     TRUE => Jupyter Notebook And Jupyter Lab with support for
 #                             all select languages.
+#     DEV_THEIA       TRUE -> Theia IDE with support for selected languages.
+#     DEV_CLI         TRUE => CLI development tools: git, tmux, vim, emac
+# ---- Package Managers --------------------------------------------------------
+#     PKGM_SPACK      TRUE => Spack
 #
 # NOTE: Additional dependancies can be placed in the script
 # user_install_extra.sh or written directly within this bash script.
 # ------------------------------------------------------------------------------
 
+# -- Julia packages ------------------------------------------------------------
 if [ "$LANG_JULIA" = "TRUE" ] && [ "$EMPTYHOME" = "TRUE" ] ; then
     export JULIA_DEPOT_PATH=/opt/shared/julia-depot # change default package install directory
 fi
 
-# Certain Julia Packages do not install as root. Install them here instead
 if [ "$LANG_JULIA" = "TRUE" ] ; then
     # ----> plotters
     if [ "$LIB_MATPLOTLIB" = "TRUE" ] ; then
@@ -64,4 +68,27 @@ if [ "$PKGM_SPACK" = "TRUE" ] ; then
   mkdir -p ~/.local/bin
   git clone https://github.com/spack/spack.git ~/.local/spack
   ln -s ~/.local/spack/bin/spack ~/.local/bin/spack
+fi
+
+# -- Theia -------------------------------------------------------------------
+if [ "$DEV_THEIA" = "TRUE" ] && [ "$EMPTYHOME" = "TRUE" ] ; then
+    export NVM_DIR=/opt/shared/nvm # change default package install directory
+fi
+
+if [ "$DEV_THEIA" = "TRUE" ] ; then
+    # ----> install nvm (https://github.com/nvm-sh/nvm)
+    wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+    source ~/.bashrc
+    # ---> install nvm
+    nvm install lts/dubnium
+    nvm use lts/dubnium
+    # ---> install yarn
+    if [ "$EMPTYHOME" = "TRUE" ] ; then
+        npm config set cache /opt/shared/npm
+    fi
+    npm install -g yarn
+    # ----> fix permissions for non-local folders (see: https://github.com/JuliaLang/julia/issues/12876)
+    if [ "$EMPTYHOME" = "TRUE" ] ; then
+        chmod -R g+w $NVM_DIR/* /opt/shared/npm/*
+    fi
 fi
