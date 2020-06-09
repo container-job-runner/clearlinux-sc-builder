@@ -21,6 +21,8 @@ if [ "$GRANT_SUDO" = "TRUE" ] ; then
     else
         (usermod -aG wheelnopw $USER_NAME)
     fi
+    # fix output error for rootless containers: See https://github.com/sudo-project/sudo/issues/42
+    echo "Set disable_coredump false" >> /etc/sudo.conf # should be removed once sudo > v1.8.31
 fi
 
 # -- add user to shared group --------------------------------------------------
