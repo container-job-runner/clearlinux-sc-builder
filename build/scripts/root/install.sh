@@ -158,7 +158,10 @@ if [ "$DEV_JUPYTER" = "TRUE" ] ; then
     # --> R Kernel for Jupyter (https://irkernel.github.io/installation/)
     R -e 'r = getOption("repos"); r["CRAN"] = "https://cloud.r-project.org/"; install.packages(c("repr", "IRdisplay", "IRkernel"), repos = r, type = "source");'
   fi
-  if [ "$LANG_FORTRAN" = "TRUE" ] ; then
-    echo "Fortran Coarrays not yet supported"
-  fi
+  # if [ "$LANG_FORTRAN" = "TRUE" ] ; then
+  #   # possible options to add later:
+  #   # 1. fortran coarrays   https://github.com/sourceryinstitute/OpenCoarrays/blob/master/INSTALL.md
+  #   # 2. lfortran:          https://lfortran.org/ https://docs.lfortran.org/installation/
+  #   # 3. fortran_magic      https://github.com/mgaitan/fortran_magic
+  # fi
 fi
