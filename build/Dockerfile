@@ -25,7 +25,7 @@ ARG EMPTYHOME
 RUN mkdir -p /opt/build-scripts/
 WORKDIR /opt/build-scripts
 COPY scripts/root/ ./
-RUN chmod +x install.sh install-extra.sh user-create.sh 
+RUN chmod -R +x ./ 
 # -- install root dependencies -------------------------------------------------
 RUN ./install.sh
 
@@ -35,6 +35,7 @@ ARG USER_PASSWORD=password
 ARG GRANT_SUDO=false
 ARG USER_ID
 ARG GROUP_ID
+ARG DYNAMIC_USERMOD
 
 # -- Generate restricted user account ------------------------------------------
 RUN /opt/build-scripts/user-create.sh
@@ -43,9 +44,9 @@ RUN /opt/build-scripts/user-create.sh
 RUN mkdir "/home/$USER_NAME/.build-scripts"
 WORKDIR "/home/$USER_NAME/.build-scripts"
 COPY scripts/user/ ./
-RUN chown $USER_ID:$GROUP_ID install.sh install-extra.sh
+RUN chown -R $USER_ID:$GROUP_ID ./
 USER $USER_NAME
-RUN chmod +x install.sh install-extra.sh
+RUN chmod -R +x ./
 # -- install user dependencies -------------------------------------------------
 RUN ./install.sh
 
