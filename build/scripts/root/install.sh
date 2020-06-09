@@ -114,11 +114,10 @@ eval $pkg_manager bundle-add ${!pkgsUniq[@]}
 # stored in home directory
 if [ "$EMPTYHOME" = "TRUE" ] ; then
     mkdir -p /opt/shared/
+    mkdir -p /opt/shared/julia-depot # directory that will be used in place of ~/.julia
     groupadd shared
     chgrp -R shared /opt/shared/
     chmod -R 2775 /opt/shared/
-    # directory that will be used in place of ~/.julia
-    mkdir -p /opt/shared/julia-depot
 fi
 
 # -- Julia ---------------------------------------------------------------------
