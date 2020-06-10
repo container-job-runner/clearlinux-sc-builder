@@ -35,6 +35,8 @@ if [ "$DYNAMIC_USERMOD" = "TRUE" ] ; then
     # allow user to run usermod with passwordless sudo and full environment
     USERMODSCRIPT="/opt/build-scripts/usermod.sh"
     SUDOCONFIG="Defaults!"$USERMODSCRIPT" setenv\n$USER_NAME ALL=(root) NOPASSWD: $USERMODSCRIPT"
-    echo -e $SUDOCONFIG >> /usr/share/defaults/sudo/sudoers.d/config
-    # note: clear linux stores sudo config in  "/usr/share/defaults/sudo/" instead of "/etc" 
+    mkdir -p /etc/sudoers.d
+    echo -e $SUDOCONFIG >> /etc/sudoers.d/config
+    # note: clear linux stores system sudo config in "/usr/share/defaults/sudo/sudoers"
+    # this file has "#includedir /etc/sudoers.d" for user modifications
 fi
