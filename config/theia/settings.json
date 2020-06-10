@@ -1,6 +1,7 @@
 {
     "workbench.iconTheme": "vs-seti",
-    "workbench.colorTheme": "One Dark Pro",
     "editor.fontSize": 14,
+    "workbench.colorTheme": "One Dark Pro",
+    "editor.fontWeight": "500",
     "terminal.integrated.fontSize": 14
 }
