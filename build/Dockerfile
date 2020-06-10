@@ -1,11 +1,10 @@
 # == Theia build stage =========================================================
 FROM node:dubnium-alpine as theia_builder
 ARG DEV_THEIA
-RUN apk add python2 build-base
-RUN mkdir /root/theia
 WORKDIR /root/theia
-RUN wget https://github.com/container-job-runner/stack-config-files/releases/download/0.1.1-alpha/package.json
 RUN if [ "$DEV_THEIA" = "TRUE" ] ; then \
+    apk add python2 build-base ; \
+    wget https://github.com/container-job-runner/stack-config-files/releases/download/0.1.1-alpha/package.json ; \
     yarn ; \
     yarn prepare ; \
     yarn build ; \
