@@ -183,6 +183,6 @@ if [ "$DEV_THEIA" = "TRUE" ] ; then
     echo -e '#!/bin/bash\nyarn --cwd '$THEIA_INSTALL_DIR' start $@' > /usr/local/bin/theia
     chmod a+x "/usr/local/bin/theia"
     # --> theia 1.2 looks for git in /usr/bin/bin/git so add symbolic link for this
-    mkdir -p /usr/bin/bin/git
+    mkdir -p /usr/bin/bin/
     ln -s /usr/bin/git /usr/bin/bin/git
 fi
