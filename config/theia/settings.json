@@ -1,5 +1,5 @@
 {
-    "workbench.iconTheme": "vs-seti",
+    "workbench.iconTheme": "theia-file-icons",
     "editor.fontSize": 14,
     "workbench.colorTheme": "One Dark Pro",
     "editor.fontWeight": "500",
