@@ -75,4 +75,4 @@ USER $USER_NAME
 RUN /home/$USER_NAME/.build-scripts/install-extra.sh
 
 WORKDIR "/home/$USER_NAME"
-ENTRYPOINT [".build-scripts/entrypoint.sh"]
+ENTRYPOINT [ "/opt/build-scripts/entrypoint.sh"]
