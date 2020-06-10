@@ -32,9 +32,9 @@ fi
 
 # -- add passwordless sudo for special entrypoint  ------------------------------
 if [ "$DYNAMIC_USERMOD" = "TRUE" ] ; then
-    # allow user to run entryscript with passwordless sudo and full environment
-    ENTRYSCRIPT="/opt/build-scripts/usermod-entrypoint.sh"
-    SUDOCONFIG="Defaults!"$ENTRYSCRIPT" setenv\n$USER_NAME ALL=(root) NOPASSWD: $ENTRYSCRIPT"
+    # allow user to run usermod with passwordless sudo and full environment
+    USERMODSCRIPT="/opt/build-scripts/usermod.sh"
+    SUDOCONFIG="Defaults!"$USERMODSCRIPT" setenv\n$USER_NAME ALL=(root) NOPASSWD: $USERMODSCRIPT"
     echo -e $SUDOCONFIG >> /usr/share/defaults/sudo/sudoers.d/config
     # note: clear linux stores sudo config in  "/usr/share/defaults/sudo/" instead of "/etc" 
 fi
