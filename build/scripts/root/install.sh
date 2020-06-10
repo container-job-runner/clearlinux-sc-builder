@@ -52,7 +52,7 @@ pkg_lib_x11=('x11-tools')
 
 # -- 1.3 Packages: development environments   ----------------------------------
 pkg_dev_jupyter=('jupyter')
-pkg_dev_theia=('wget' 'musl')
+pkg_dev_theia=('wget' 'musl' 'git')
 pkg_dev_cli=('vim' 'git' 'tmux' 'emacs')
 
 # -- Add packages to pkgs array ------------------------------------------------
@@ -182,4 +182,7 @@ if [ "$DEV_THEIA" = "TRUE" ] ; then
     mkdir -p /usr/local/bin/
     echo -e '#!/bin/bash\nyarn --cwd '$THEIA_INSTALL_DIR' start $@' > /usr/local/bin/theia
     chmod a+x "/usr/local/bin/theia"
+    # --> theia 1.2 looks for git in /usr/bin/bin/git so add symbolic link for this
+    mkdir -p /usr/bin/bin/git
+    ln -s /usr/bin/git /usr/bin/bin/git
 fi
