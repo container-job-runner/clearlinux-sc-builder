@@ -27,6 +27,8 @@ build:
     DEV_CLI: "FALSE"
     # ---- package managers ----------------------------------------------------
     PKGM_SPACK: "FALSE"
+environment:
+  USE_LOCAL_GIT: "true" # used by theia (https://github.com/eclipse-theia/theia/issues/1964)
 mounts:
   - type: "bind"
     hostPath: "config/jupyter"
