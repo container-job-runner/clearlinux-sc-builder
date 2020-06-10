@@ -14,6 +14,6 @@
 if [ -n "$DYNAMIC_USER" ] && [ -n "$DYNAMIC_UID" ] && [ -n "$DYNAMIC_GID" ] ; then
     groupmod -g $DYNAMIC_GID $DYNAMIC_USER
     usermod -u $DYNAMIC_UID -g $DYNAMIC_GID $DYNAMIC_USER
-    chown -R $DYNAMIC_UID:$DYNAMIC_GID /home/$DYNAMIC_USER
+    chown $DYNAMIC_UID:$DYNAMIC_GID /home/$DYNAMIC_USER # note: avoid recusive chown and add any special directories manually. (this will be faster, and we prevent attempting to chown files in bound volumes)
     exec sudo -E -u $DYNAMIC_USER bash -l -c "$@"
 fi
