@@ -40,7 +40,7 @@ pkg_manager="swupd"
 pkg_lang_c=('c-basic' 'gdb');
 pkg_lang_fortran=('c-basic' 'gdb');
 pkg_lang_python3=('python3-basic' 'python-data-science')
-pkg_lang_julia=('wget')
+pkg_lang_julia=('wget' 'qt5-dev')
 pkg_lang_R=('R-basic' 'R-extras')
 pkg_lang_latex=('texlive')
 
@@ -134,6 +134,10 @@ if [ "$LANG_JULIA" = "TRUE" ] ; then
   tar -xzf julia-1.4.2-linux-x86_64.tar.gz
   ln -s /opt/julia-1.4.2/bin/julia /usr/local/bin/julia
   rm julia-1.4.2-linux-x86_64.tar.gz
+    # PyPlots fix: overwrite outdated libstdc which has lower version than the system and causes problems when building PyPlot
+    # https://github.com/JuliaLang/julia/issues/34276
+    # https://discourse.julialang.org/t/glibcxx-3-4-26-not-found-in-rcall/29113/10
+    cp /usr/lib64/libstdc++.so.6 /opt/julia-1.4.2/lib/julia
 fi
 
 # -- Jupyter -------------------------------------------------------------------
