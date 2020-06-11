@@ -46,7 +46,7 @@ if [ "$LANG_JULIA" = "TRUE" ] ; then
 
     # ----> fix permissions for non-local folders (see: https://github.com/JuliaLang/julia/issues/12876)
     if [ "$EMPTYHOME" = "TRUE" ] ; then
-        chmod -R g+w $JULIA_DEPOT_PATH
+        chmod -R g+w $JULIA_DEPOT_PATH/*
     fi
 ]
 fi
