@@ -42,6 +42,7 @@ if [ "$LANG_JULIA" = "TRUE" ] ; then
     fi
     julia -e 'import Pkg; Pkg.add("GR"); using GR'
     julia -e 'import Pkg; Pkg.add("Plots"); using Plots'
+    julia -e 'import Pkg; Pkg.add("LanguageServer"); using LanguageServer'
 
     # ----> fix permissions for non-local folders (see: https://github.com/JuliaLang/julia/issues/12876)
     if [ "$EMPTYHOME" = "TRUE" ] ; then
