@@ -4,10 +4,9 @@ ARG DEV_THEIA
 WORKDIR /root/theia
 RUN if [ "$DEV_THEIA" = "TRUE" ] ; then \
     apk add python2 build-base ; \
-    wget https://github.com/container-job-runner/stack-config-files/releases/download/0.1.1-alpha/package.json ; \
+    wget https://github.com/container-job-runner/stack-config-files/releases/download/0.1.2-alpha/package.json ; \
     yarn ; \
     yarn prepare ; \
-    yarn build ; \
     fi
 
 # == Clear Linux Dockerfile =====================================================
