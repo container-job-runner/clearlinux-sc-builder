@@ -6,7 +6,9 @@ A cjr stack based on Clear Linux and swupd.
 ## Installation
 
 To use use this stack with cjr simply run the command
+
 `cjr stack:pull https://github.com/container-job-runner/stack-clear-basic.git`
+
 or manually clone the repository into your cjr stacks directory.
 
 ## Description
