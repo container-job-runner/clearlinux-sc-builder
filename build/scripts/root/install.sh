@@ -171,15 +171,10 @@ fi
 
 # -- Theia ---------------------------------------------------------------------
 if [ "$DEV_THEIA" = "TRUE" ] ; then
-    # add symbolic link for standard muscl library location, then install python2 libs
+    # add symbolic link for standard musl library location, then install python2 libs
     # for the moment, it appers that python2-basic must be installed after creating symbolic link or theia will start with error
     ln -s /usr/lib64/musl/lib64/libc.so /lib/libc.musl-x86_64.so.1
     swupd bundle-add python2-basic
-    # --> create launcher
-    THEIA_INSTALL_DIR=/opt/theia # assumed location of theia
-    mkdir -p /usr/local/bin/
-    echo -e '#!/bin/bash\nyarn --cwd '$THEIA_INSTALL_DIR' start $@' > /usr/local/bin/theia
-    chmod a+x "/usr/local/bin/theia"
     # --> theia 1.2 looks for git in /usr/bin/bin/git so add symbolic link for this
     mkdir -p /usr/bin/bin/
     ln -s /usr/bin/git /usr/bin/bin/git
