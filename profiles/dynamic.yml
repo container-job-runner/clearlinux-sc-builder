@@ -6,5 +6,5 @@ environment:
   JULIA_DEPOT_PATH: "/opt/shared/julia-depot" # used in place of ~/.julia
   DYNAMIC_USER: "user"
 environment-dynamic:
-  DYNAMIC_UID: "${id -u}"
-  DYNAMIC_GID: "${id -g}"
+  DYNAMIC_UID: "$(id -g)"
+  DYNAMIC_GID: "$(id -g)"
