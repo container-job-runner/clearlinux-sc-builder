@@ -51,7 +51,7 @@ pkg_lib_matPlotLib=('python-data-science')
 pkg_lib_x11=('x11-tools')
 
 # -- 1.3 Packages: development environments   ----------------------------------
-pkg_dev_jupyter=('jupyter')
+pkg_dev_jupyter=('jupyter' 'nodejs-basic')
 pkg_dev_theia=('wget' 'musl' 'git')
 pkg_dev_cli=('vim' 'git' 'tmux' 'emacs')
 
@@ -142,17 +142,11 @@ fi
 
 # -- Jupyter -------------------------------------------------------------------
 if [ "$DEV_JUPYTER" = "TRUE" ] ; then
-  pip3 install jupyterlab # Jupyter Lab
   # --> install atom dark theme (https://github.com/container-job-runner/jupyter-atom-theme.git)
   cd /opt
   git clone https://github.com/container-job-runner/jupyter-atom-theme.git
   jupyter labextension install jupyter-atom-theme
   # --> matplotlib Widgets for JupiterLab (https://github.com/matplotlib/jupyter-matplotlib)
-  if [ "$LIB_MATPLOTLIB" = "TRUE" ] ; then
-    pip3 install ipympl
-    jupyter labextension install @jupyter-widgets/jupyterlab-manager
-    jupyter labextension install jupyter-matplotlib
-  fi
   if [ "$LANG_LATEX" = "TRUE" ] ; then
     # --> Latex for JupyterLab (https://github.com/jupyterlab/jupyterlab-latex)
     pip3 install jupyterlab_latex
