@@ -1,15 +1,21 @@
-# == Theia build stage =========================================================
+ARG DEV_THEIA
+ARG THEIA_INSTALL_DIR=/opt/theia
+
+# == 1. build stage: Theia =====================================================
 FROM node:dubnium-alpine as theia_builder
 ARG DEV_THEIA
+ARG THEIA_INSTALL_DIR
 WORKDIR /root/theia
 RUN if [ "$DEV_THEIA" = "TRUE" ] ; then \
     apk add python2 build-base ; \
     wget https://github.com/container-job-runner/stack-config-files/releases/download/0.1.2-alpha/package.json ; \
     yarn ; \
     yarn prepare ; \
+    echo -e '#!/bin/bash\nyarn --cwd '$THEIA_INSTALL_DIR' start $@' > /root/theia_launcher ; \
+    chmod a+x /root/theia_launcher ; \
     fi
 
-# == Clear Linux Dockerfile =====================================================
+# == 2. main Dockerfile: Clear Linux ===========================================
 FROM clearlinux:latest
 
 # ----> ARGS: languages
@@ -32,6 +38,7 @@ ARG DEV_CLI
 ARG PKGM_SPACK
 # ----> ARGS: additional options
 ARG EMPTYHOME
+ARG THEIA_INSTALL_DIR
 
 # -- copy root install files to /opt/build-scripts -----------------------------
 RUN mkdir -p /opt/build-scripts/
@@ -40,7 +47,8 @@ COPY scripts/root/ ./
 RUN chmod -R +x ./ 
 # -- install root dependencies -------------------------------------------------
 RUN ./install.sh
-COPY --from=theia_builder /root/theia /opt/theia
+COPY --from=theia_builder /root/theia $THEIA_INSTALL_DIR
+COPY --from=theia_builder /root/theia_launcher /usr/local/bin/theia
 
 # ----> ARGS: user (placed here to prevent full rebuild)
 ARG USER_NAME=user
