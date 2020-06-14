@@ -5,7 +5,7 @@ build:
     LANG_FORTRAN: "TRUE"
     LANG_PYTHON3: "TRUE"
     LANG_JULIA: "TRUE"
-    LANG_LATEX: "TRUE"
+    LANG_LATEX: "FALSE"
     LANG_R: "TRUE"
     # ---- libraries -----------------------------------------------------------
     LIB_MATPLOTLIB : "TRUE"
