@@ -154,6 +154,7 @@ if [ "$DEV_JUPYTER" = "TRUE" ] ; then
   # --> matplotlib Widgets for JupiterLab (https://github.com/matplotlib/jupyter-matplotlib)
   if [ "$LANG_LATEX" = "TRUE" ] ; then
     # --> Latex for JupyterLab (https://github.com/jupyterlab/jupyterlab-latex)
+    # NOTE: June 13, 2020: the latex extension will not work until following issue is resolved: https://github.com/jupyterlab/jupyterlab-latex/issues/135
     pip3 install jupyterlab_latex
     jupyter labextension install @jupyterlab/latex
   fi
