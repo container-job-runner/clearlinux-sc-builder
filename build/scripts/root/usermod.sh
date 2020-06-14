@@ -14,13 +14,13 @@
 USER_CHANGE="FALSE"
 
 # -- modify user group id ------------------------------------------------------
-if [ -n "$DYNAMIC_USER" ] && [ -n "$DYNAMIC_GID" ] && [ "$(id -g)" != "$DYNAMIC_GID" ] ; then
+if [ -n "$DYNAMIC_USER" ] && [ -n "$DYNAMIC_GID" ] && [ "$(id -g $DYNAMIC_USER)" != "$DYNAMIC_GID" ] ; then
     groupmod -g $DYNAMIC_GID $DYNAMIC_USER
     USER_CHANGE="TRUE"
 fi
 
 # -- modify user id ------------------------------------------------------------
-if [ -n "$DYNAMIC_USER" ] && [ -n "$DYNAMIC_UID" ] && [ "$(id -u)" != "$DYNAMIC_UID" ] ; then
+if [ -n "$DYNAMIC_USER" ] && [ -n "$DYNAMIC_UID" ] && [ "$(id -u $DYNAMIC_USER)" != "$DYNAMIC_UID" ] ; then
     usermod -u $DYNAMIC_UID -g $DYNAMIC_GID $DYNAMIC_USER
     USER_CHANGE="TRUE"
 fi
