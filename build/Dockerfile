@@ -11,9 +11,9 @@ RUN if [ "$DEV_THEIA" = "TRUE" ] ; then \
     wget https://github.com/container-job-runner/stack-config-files/releases/download/0.1.2-alpha/package.json ; \
     yarn ; \
     yarn prepare ; \
-    echo -e '#!/bin/bash\nyarn --cwd '$THEIA_INSTALL_DIR' start $@' > /root/theia_launcher ; \
-    chmod a+x /root/theia_launcher ; \
     fi
+RUN echo -e '#!/bin/bash\nyarn --cwd '$THEIA_INSTALL_DIR' start $@' > /root/theia_launcher ; \
+    chmod a+x /root/theia_launcher ;
 
 # == 2. main Dockerfile: Clear Linux ===========================================
 FROM clearlinux:latest
@@ -44,7 +44,7 @@ ARG THEIA_INSTALL_DIR
 RUN mkdir -p /opt/build-scripts/
 WORKDIR /opt/build-scripts
 COPY scripts/root/ ./
-RUN chmod -R +x ./ 
+RUN chmod -R +x ./
 # -- install root dependencies -------------------------------------------------
 RUN ./install.sh
 COPY --from=theia_builder /root/theia $THEIA_INSTALL_DIR
