@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # -- ROOT INSTALL SCRIPT -------------------------------------------------------
-# Installs dependencies for Clear linux using the swupd package manager and 
+# Installs dependencies for Clear linux using the swupd package manager and
 # additional manual installations. This script will be executed by root.
 # It responds to the following environmental variables:
 #
@@ -149,6 +149,8 @@ if [ "$DEV_JUPYTER" = "TRUE" ] ; then
   # --> matplotlib Widgets for JupiterLab (https://github.com/matplotlib/jupyter-matplotlib)
   if [ "$LIB_MATPLOTLIB" = "TRUE" ] ; then
     pip3 install ipympl
+    pip3 uninstall -y PyQt5 # remove dev version provided with clear linux
+    pip3 install PyQt5 # install standard package
     jupyter labextension install @jupyter-widgets/jupyterlab-manager
   fi
   # --> matplotlib Widgets for JupiterLab (https://github.com/matplotlib/jupyter-matplotlib)
