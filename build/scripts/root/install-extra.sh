@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # -- ROOT INSTALL EXTRA SCRIPT -------------------------------------------------
-# Use this shell script for addint any additionaly dependancies.
+# Use this shell script for adding any additional dependancies.
 #
 #    E.G. dnf install <missing package>
 #
