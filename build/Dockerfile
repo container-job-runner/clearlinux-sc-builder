@@ -39,6 +39,7 @@ ARG PKGM_SPACK
 # ----> ARGS: additional options
 ARG EMPTYHOME
 ARG THEIA_INSTALL_DIR
+ARG CJR
 
 # -- copy root install files to /opt/build-scripts -----------------------------
 RUN mkdir -p /opt/build-scripts/
