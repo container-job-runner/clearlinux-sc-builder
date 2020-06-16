@@ -16,3 +16,4 @@ build:
     DEV_JUPYTER: "TRUE"
     DEV_THEIA: "TRUE"
     DEV_CLI: "TRUE"
+    CJR: "TRUE"
