@@ -37,12 +37,13 @@ if [ "$LANG_JULIA" = "TRUE" ] ; then
     if [ "$LIB_MATPLOTLIB" = "TRUE" ] ; then
         julia -e 'import Pkg; Pkg.add("PyPlot"); using PyPlot'
     fi
-    if [ "$LIB_X11" = "TRUE" ] ; then
-        julia -e 'import Pkg; Pkg.add("LaTeXStrings"); using LaTeXStrings'
-    fi
     julia -e 'import Pkg; Pkg.add("GR"); using GR'
+    julia -e 'import Pkg; Pkg.add("UnicodePlots"); using UnicodePlots'
     julia -e 'import Pkg; Pkg.add("Plots"); using Plots'
+    julia -e 'import Pkg; Pkg.add("LaTeXStrings"); using LaTeXStrings'
+    # ----> debug and language server
     julia -e 'import Pkg; Pkg.add("LanguageServer"); using LanguageServer'
+    julia -e 'import Pkg; Pkg.add("JuliaInterpreter"); using JuliaInterpreter'
 
     # ----> fix permissions for non-local folders (see: https://github.com/JuliaLang/julia/issues/12876)
     if [ "$EMPTYHOME" = "TRUE" ] ; then
