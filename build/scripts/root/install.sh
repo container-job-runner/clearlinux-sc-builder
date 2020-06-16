@@ -22,6 +22,7 @@
 #                             all select languages.
 #
 # ---- Additional options ------------------------------------------------------
+#      CJR            TRUE => installs cjr inside the container
 #      EMPTYHOME      TRUE => directories will be created for storing program
 #                             data in the /opt/shared directory instead of ~/
 #                             and a new group will be created for ownership.
@@ -54,6 +55,7 @@ pkg_lib_x11=('x11-tools')
 pkg_dev_jupyter=('jupyter' 'nodejs-basic')
 pkg_dev_theia=('wget' 'musl' 'git')
 pkg_dev_cli=('vim' 'git' 'tmux' 'emacs')
+pkg_cjr=('wget')
 
 # -- Add packages to pkgs array ------------------------------------------------
 declare -a pkgs=('sudo' 'sysadmin-basic'); # basic packages required for usage
@@ -102,6 +104,10 @@ if [ "$DEV_THEIA" = "TRUE" ] ; then
 
 if [ "$DEV_CLI" = "TRUE" ] ; then
   pkgs=("${pkgs[@]}" "${pkg_dev_cli[@]}") ; fi
+
+# ----> other
+if [ "$CJR" = "TRUE" ] ; then
+  pkgs=("${pkgs[@]}" "${pkg_cjr[@]}") ; fi
 
 # -- remove redundant elements then install (requires bash 4+) -----------------
 declare -A pkgsUniq
@@ -186,4 +192,13 @@ if [ "$DEV_THEIA" = "TRUE" ] ; then
     # --> theia 1.2 looks for git in /usr/bin/bin/git so add symbolic link for this
     mkdir -p /usr/bin/bin/
     ln -s /usr/bin/git /usr/bin/bin/git
+fi
+
+# -- cjr -----------------------------------------------------------------------
+if [ "$CJR" = "TRUE" ] ; then
+    cd /opt
+    wget --quiet https://github.com/container-job-runner/cjr/releases/download/v0.3.0-alpha/cjr-v0.3.0-linux-x64.tar.gz
+    tar -xzf cjr-v0.3.0-linux-x64.tar.gz
+    ln -s /opt/cjr/bin/cjr /usr/local/bin/cjr
+    rm cjr-v0.3.0-linux-x64.tar.gz
 fi
