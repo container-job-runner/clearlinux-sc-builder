@@ -55,7 +55,7 @@ pkg_lib_x11=('x11-tools')
 pkg_dev_jupyter=('jupyter' 'nodejs-basic')
 pkg_dev_theia=('wget' 'musl' 'git')
 pkg_dev_cli=('vim' 'git' 'tmux' 'emacs')
-pkg_cjr=('wget')
+pkg_cjr=('wget' 'rsync')
 
 # -- Add packages to pkgs array ------------------------------------------------
 declare -a pkgs=('sudo' 'sysadmin-basic'); # basic packages required for usage
