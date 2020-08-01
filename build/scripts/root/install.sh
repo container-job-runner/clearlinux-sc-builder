@@ -56,7 +56,7 @@ pkg_lib_x11=('x11-tools' 'x11-server')
 
 # -- 1.3 Packages: development environments   ----------------------------------
 pkg_dev_jupyter=('jupyter' 'nodejs-basic')
-pkg_dev_theia=('wget' 'musl' 'git')
+pkg_dev_theia=('wget' 'git')
 pkg_dev_cli=('vim' 'git' 'tmux' 'emacs')
 pkg_cjr=('wget' 'rsync')
 
@@ -199,17 +199,6 @@ if [ "$DEV_JUPYTER" = "TRUE" ] ; then
   #   # 2. lfortran:          https://lfortran.org/ https://docs.lfortran.org/installation/
   #   # 3. fortran_magic      https://github.com/mgaitan/fortran_magic
   # fi
-fi
-
-# -- Theia ---------------------------------------------------------------------
-if [ "$DEV_THEIA" = "TRUE" ] ; then
-    # add symbolic link for standard musl library location, then install python2 libs
-    # for the moment, it appers that python2-basic must be installed after creating symbolic link or theia will start with error
-    ln -s /usr/lib64/musl/lib64/libc.so /lib/libc.musl-x86_64.so.1
-    swupd bundle-add python2-basic
-    # --> theia 1.2 looks for git in /usr/bin/bin/git so add symbolic link for this
-    mkdir -p /usr/bin/bin/
-    ln -s /usr/bin/git /usr/bin/bin/git
 fi
 
 # -- cjr -----------------------------------------------------------------------
