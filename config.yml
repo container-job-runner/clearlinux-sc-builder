@@ -44,3 +44,4 @@ files:
 flags:
   userns: keep-id
   chown-file-volume: "host-user"
+  cmd-args: join
