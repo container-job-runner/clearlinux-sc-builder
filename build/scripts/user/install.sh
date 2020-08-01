@@ -72,12 +72,11 @@ if [ "$PKGM_SPACK" = "TRUE" ] ; then
   ln -s ~/.local/spack/bin/spack ~/.local/bin/spack
 fi
 
-# -- Theia -------------------------------------------------------------------
-if [ "$DEV_THEIA" = "TRUE" ] && [ "$EMPTYHOME" = "TRUE" ] ; then
-    export NVM_DIR=/opt/shared/nvm # change default package install directory
-fi
-
+# -- Theia ---------------------------------------------------------------------
 if [ "$DEV_THEIA" = "TRUE" ] ; then
+    if [ "$EMPTYHOME" = "TRUE" ] ; then
+        export NVM_DIR=/opt/shared/nvm # change default package install directory
+    fi    
     # ----> install nvm (https://github.com/nvm-sh/nvm)
     wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
     source ~/.bashrc
