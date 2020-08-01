@@ -49,7 +49,6 @@ if [ "$LANG_JULIA" = "TRUE" ] ; then
     if [ "$EMPTYHOME" = "TRUE" ] ; then
         chmod -R g+w $JULIA_DEPOT_PATH/*
     fi
-]
 fi
 
 # -- Juputer Kernels -----------------------------------------------------------
