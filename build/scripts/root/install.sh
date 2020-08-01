@@ -165,9 +165,24 @@ if [ "$DEV_JUPYTER" = "TRUE" ] ; then
   # --> matplotlib Widgets for JupiterLab (https://github.com/matplotlib/jupyter-matplotlib)
   if [ "$LANG_LATEX" = "TRUE" ] ; then
     # --> Latex for JupyterLab (https://github.com/jupyterlab/jupyterlab-latex)
-    # NOTE: June 13, 2020: the latex extension will not work until following issue is resolved: https://github.com/jupyterlab/jupyterlab-latex/issues/135
-    pip3 install jupyterlab_latex
-    jupyter labextension install @jupyterlab/latex
+    # pip3 install jupyterlab_latex                     # remove fix and uncomment once extension is fixed
+    # jupyter labextension install @jupyterlab/latex    # remove fix and uncomment once extension is fixed
+    # NOTE: Jupyterlab-latex is currently broken:
+    #   https://github.com/jupyterlab/jupyterlab-latex/issues/135
+    # The following fix applies proposed pull request: 
+    #   https://github.com/jupyterlab/jupyterlab-latex/pull/137
+    # ---- START jupyterlab-latex fix ------------------------------------------
+    dnf install -y git
+    cd /opt
+    git clone https://github.com/jupyterlab/jupyterlab-latex.git
+    cd /opt/jupyterlab-latex
+    git checkout 922181e380b20146f4b2bd2b9f4c979620af7f8c
+    sed -i 's/"pdfjs-dist": "^2.0.943"/"pdfjs-dist": "2.0.943"/' package.json 
+    pip3 install .
+    jlpm install
+    jlpm run build
+    jupyter labextension install .
+    # ---- END jupyterlab-latex fix --------------------------------------------
   fi
   if [ "$LANG_C" = "TRUE" ] ; then
     # --> C Kernel for Jypyter https://github.com/brendan-rius/jupyter-c-kernel
