@@ -201,6 +201,13 @@ if [ "$DEV_JUPYTER" = "TRUE" ] ; then
   # fi
 fi
 
+# -- Theia ---------------------------------------------------------------------
+if [ "$DEV_THEIA" = "TRUE" ] ; then
+    # --> On Clear linux, Theia looks for git in /usr/bin/bin/git
+    mkdir -p /usr/bin/bin/
+    ln -s /usr/bin/git /usr/bin/bin/git
+fi
+
 # -- cjr -----------------------------------------------------------------------
 if [ "$CJR" = "TRUE" ] ; then
     cd /opt
