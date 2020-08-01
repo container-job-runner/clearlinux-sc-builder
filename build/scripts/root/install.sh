@@ -16,10 +16,13 @@
 # ---- Libraries ---------------------------------------------------------------
 #     LIB_LINALG      TRUE => Linear algebra libraries BLAS, LAPACK and FFTW
 #     LIB_OPENMPI     TRUE => openmpi (loaded using module load mpi)
+#     LIB_X11         TRUE => basic x11 libraries and Xvfb
 #
 # ---- Dev Environemnts --------------------------------------------------------
 #     DEV_JUPYTER     TRUE => Jupyter Notebook And Jupyter Lab with support for
 #                             all select languages.
+#     DEV_THEIA       TRUE -> Theia IDE with support for selected languages.
+#     DEV_CLI         TRUE => CLI development tools: git, tmux, vim, emac
 #
 # ---- Additional options ------------------------------------------------------
 #      CJR            TRUE => installs cjr inside the container
@@ -49,7 +52,7 @@ pkg_lang_latex=('texlive')
 pkg_lib_linAlg=('openblas' 'devpkg-fftw')
 pkg_lib_openMPI=('openmpi')
 pkg_lib_matPlotLib=('python-data-science')
-pkg_lib_x11=('x11-tools')
+pkg_lib_x11=('x11-tools' 'x11-server')
 
 # -- 1.3 Packages: development environments   ----------------------------------
 pkg_dev_jupyter=('jupyter' 'nodejs-basic')
