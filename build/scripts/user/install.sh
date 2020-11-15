@@ -44,6 +44,10 @@ if [ "$LANG_JULIA" = "TRUE" ] ; then
     # ----> debug and language server
     julia -e 'import Pkg; Pkg.add("LanguageServer"); using LanguageServer'
     julia -e 'import Pkg; Pkg.add("JuliaInterpreter"); using JuliaInterpreter'
+    # -----> MPI.jl (https://github.com/JuliaParallel/MPI.jl)
+    if [ "$LIB_OPENMPI" = "TRUE" ] ; then
+        julia -e 'ENV["JULIA_MPI_BINARY"]="system"; import Pkg; Pkg.add("MPI"); using MPI'
+    fi
 
     # ----> fix permissions for non-local folders (see: https://github.com/JuliaLang/julia/issues/12876)
     if [ "$EMPTYHOME" = "TRUE" ] ; then
