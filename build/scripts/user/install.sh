@@ -21,7 +21,7 @@
 #     DEV_THEIA       TRUE -> Theia IDE with support for selected languages.
 #     DEV_CLI         TRUE => CLI development tools: git, tmux, vim, emac
 # ---- Package Managers --------------------------------------------------------
-#     PKGM_SPACK      TRUE => Spack
+#     ASW_SPACK      TRUE => Spack
 #
 # NOTE: Additional dependancies can be placed in the script
 # user_install_extra.sh or written directly within this bash script.
@@ -64,7 +64,7 @@ if [ "$DEV_JUPYTER" = "TRUE" ] ; then
 fi
 
 # -- Spack ---------------------------------------------------------------------
-if [ "$PKGM_SPACK" = "TRUE" ] ; then
+if [ "$ASW_SPACK" = "TRUE" ] ; then
   mkdir -p ~/.local
   mkdir -p ~/.local/bin
   git clone https://github.com/spack/spack.git ~/.local/spack

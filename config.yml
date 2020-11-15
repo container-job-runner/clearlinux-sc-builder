@@ -25,8 +25,9 @@ build:
     DEV_JUPYTER: "FALSE"
     DEV_THEIA: "FALSE"
     DEV_CLI: "FALSE"
-    # ---- package managers ----------------------------------------------------
-    PKGM_SPACK: "FALSE"
+    # ---- additional software -------------------------------------------------
+    ASW_SPACK: "FALSE"
+    ASW_VNC: "FALSE"
 environment:
   USE_LOCAL_GIT: "true" # used by theia (https://github.com/eclipse-theia/theia/issues/1964)
 mounts:

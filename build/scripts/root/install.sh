@@ -25,6 +25,10 @@
 #     DEV_THEIA       TRUE -> Theia IDE with support for selected languages.
 #     DEV_CLI         TRUE => CLI development tools: git, tmux, vim, emac
 #
+# ---- Software ----------------------------------------------------------------
+#     ASW_SPACK       TRUE => Spack
+#     ASW_VNC         TRUE => Tiger VNC
+#
 # ---- Additional options ------------------------------------------------------
 #      CJR            TRUE => installs cjr inside the container
 #      EMPTYHOME      TRUE => directories will be created for storing program
@@ -61,6 +65,9 @@ pkg_dev_jupyter=('jupyter' 'nodejs-basic')
 pkg_dev_theia=('wget' 'git')
 pkg_dev_cli=('vim' 'git' 'tmux' 'emacs')
 pkg_cjr=('wget' 'rsync')
+
+# -- 1.4 Packages: additional software -----------------------------------------
+pkg_asw_vnc=('desktop-autostart vnc-server xfce4-desktop')
 
 # -- Add packages to pkgs array ------------------------------------------------
 declare -a pkgs=('sudo' 'sysadmin-basic'); # basic packages required for usage
@@ -113,7 +120,11 @@ if [ "$DEV_THEIA" = "TRUE" ] ; then
 if [ "$DEV_CLI" = "TRUE" ] ; then
   pkgs=("${pkgs[@]}" "${pkg_dev_cli[@]}") ; fi
 
-# ----> other
+# ----> additional software
+
+if [ "$ASW_VNC" = "TRUE" ] ; then
+  pkgs=("${pkgs[@]}" "${pkg_asw_vnc[@]}") ; fi
+
 if [ "$CJR" = "TRUE" ] ; then
   pkgs=("${pkgs[@]}" "${pkg_cjr[@]}") ; fi
 
