@@ -66,6 +66,7 @@ pkg_dev_theia=('wget' 'git')
 pkg_dev_cli=('vim' 'git' 'tmux' 'emacs')
 
 # -- 1.4 Packages: additional software -----------------------------------------
+pkg_asw_spack=('c-basic' 'python-basic' 'git' 'curl' 'patch' 'gnupg')
 pkg_asw_vnc=('desktop-autostart vnc-server xfce4-desktop')
 pkg_asw_cjr=('wget' 'rsync')
 
@@ -121,6 +122,9 @@ if [ "$DEV_CLI" = "TRUE" ] ; then
   pkgs=("${pkgs[@]}" "${pkg_dev_cli[@]}") ; fi
 
 # ----> additional software
+
+if [ "$ASW_SPACK" = "TRUE" ] ; then
+  pkgs=("${pkgs[@]}" "${pkg_asw_spack[@]}") ; fi
 
 if [ "$ASW_VNC" = "TRUE" ] ; then
   pkgs=("${pkgs[@]}" "${pkg_asw_vnc[@]}") ; fi

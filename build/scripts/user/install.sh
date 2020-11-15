@@ -69,6 +69,7 @@ if [ "$ASW_SPACK" = "TRUE" ] ; then
   mkdir -p ~/.local/bin
   git clone https://github.com/spack/spack.git ~/.local/spack
   ln -s ~/.local/spack/bin/spack ~/.local/bin/spack
+  echo 'PATH=$PATH:~/.local/bin/' >> ~/.bashrc
 fi
 
 # -- Theia ---------------------------------------------------------------------
