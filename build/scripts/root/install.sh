@@ -234,6 +234,10 @@ if [ "$DEV_THEIA" = "TRUE" ] ; then
     # --> On Clear linux, Theia looks for git in /usr/bin/bin/git
     mkdir -p /usr/bin/bin/
     ln -s /usr/bin/git /usr/bin/bin/git
+
+    if [ "$LANG_PYTHON3" = "TRUE" ] ; then
+        pip3 install pylint
+    fi
 fi
 
 # -- cjr -----------------------------------------------------------------------
