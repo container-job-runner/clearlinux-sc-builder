@@ -4,11 +4,15 @@
 # Adds a non root user and enables sudo permissions for entrypoint usermod 
 # script. The script responds to the following environmental variables:
 #
-#     USER_ID         ID for new linux user
-#     GROUP_ID        Group ID for new linux user
-#     USER_NAME       username for new linux user
-#     USER_PASSWORD   password for new linux user
-#     GRANT_SUDO      if "TRUE" then new linux user will have sudo privilages
+#     USER_ID           ID for new linux user
+#     GROUP_ID          Group ID for new linux user
+#     USER_NAME         username for new linux user
+#     USER_PASSWORD     password for new linux user
+#     GRANT_SUDO        if "PASSWORDLESS" or TRUE" then the new linux user will 
+#                       have sudo privilages. PASSWORDLESS enables passwordless 
+#                       sudo, TRUE enables password-based sudo unless password 
+#                       is empty in which case it grades passwordless sudo.
+# ------------------------------------------------------------------------------
 #     EMPTYHOME       if "TRUE" then the user will be added to group "shared"
 #     DYNAMIC_USER    if "TRUE" then passwordless execution is enabled for 
 #                     usermod script "/opt/build-scripts/usermod.sh"
@@ -31,14 +35,13 @@ if [ -n "$USER_PASSWORD" ] ; then
 fi 
 
 # -- Grant sudo ----------------------------------------------------------------
-if [ "$GRANT_SUDO" = "TRUE" ] ; then
-    if [ -n "$USER_PASSWORD" ] ; then
-        (usermod -aG wheel $USER_NAME)
-    else
-        (usermod -aG wheelnopw $USER_NAME)
-    fi
-    # fix output error for rootless containers: See https://github.com/sudo-project/sudo/issues/42
-    echo "Set disable_coredump false" >> /etc/sudo.conf # should be removed once sudo > v1.8.31
+# passwordless sudo granted if either condition is true:
+#   (1) GRANT_SUDO=PASSWORDLESS
+#   (2) GRANT_SUDO=TRUE and USER_PASSWORD empty
+if [[ "$GRANT_SUDO" = "PASSWORDLESS" ||  ( "$GRANT_SUDO" = "TRUE" && -z "$USER_PASSWORD" ) ]] ; then    
+    usermod -aG wheelnopw $USER_NAME
+elif [ "$GRANT_SUDO" = "TRUE" ] ; then
+    usermod -aG wheel $USER_NAME
 fi
 
 # -- add user to shared group --------------------------------------------------
