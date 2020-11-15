@@ -62,10 +62,10 @@ ARG DEV_CLI
 # ----> ARGS: additional software
 ARG ASW_SPACK
 ARG ASW_VNC
+ARG ASW_CJR
 # ----> ARGS: additional options
 ARG EMPTYHOME
 ARG THEIA_INSTALL_DIR
-ARG CJR
 
 # -- copy root install files to /opt/build-scripts -----------------------------
 RUN mkdir -p /opt/build-scripts/

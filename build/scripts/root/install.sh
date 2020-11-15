@@ -28,9 +28,9 @@
 # ---- Software ----------------------------------------------------------------
 #     ASW_SPACK       TRUE => Spack
 #     ASW_VNC         TRUE => Tiger VNC
+#     ASW_CJR         TRUE => installs cjr inside the container
 #
 # ---- Additional options ------------------------------------------------------
-#      CJR            TRUE => installs cjr inside the container
 #      EMPTYHOME      TRUE => directories will be created for storing program
 #                             data in the /opt/shared directory instead of ~/
 #                             and a new group will be created for ownership.
@@ -64,10 +64,10 @@ pkg_lib_x11=('x11-tools' 'x11-server')
 pkg_dev_jupyter=('jupyter' 'nodejs-basic')
 pkg_dev_theia=('wget' 'git')
 pkg_dev_cli=('vim' 'git' 'tmux' 'emacs')
-pkg_cjr=('wget' 'rsync')
 
 # -- 1.4 Packages: additional software -----------------------------------------
 pkg_asw_vnc=('desktop-autostart vnc-server xfce4-desktop')
+pkg_asw_cjr=('wget' 'rsync')
 
 # -- Add packages to pkgs array ------------------------------------------------
 declare -a pkgs=('sudo' 'sysadmin-basic'); # basic packages required for usage
@@ -125,8 +125,8 @@ if [ "$DEV_CLI" = "TRUE" ] ; then
 if [ "$ASW_VNC" = "TRUE" ] ; then
   pkgs=("${pkgs[@]}" "${pkg_asw_vnc[@]}") ; fi
 
-if [ "$CJR" = "TRUE" ] ; then
-  pkgs=("${pkgs[@]}" "${pkg_cjr[@]}") ; fi
+if [ "$ASW_CJR" = "TRUE" ] ; then
+  pkgs=("${pkgs[@]}" "${pkg_asw_cjr[@]}") ; fi
 
 # -- remove redundant elements then install (requires bash 4+) -----------------
 declare -A pkgsUniq
@@ -252,10 +252,11 @@ if [ "$DEV_THEIA" = "TRUE" ] ; then
 fi
 
 # -- cjr -----------------------------------------------------------------------
-if [ "$CJR" = "TRUE" ] ; then
+if [ "$ASW_CJR" = "TRUE" ] ; then
     cd /opt
-    wget --quiet https://github.com/container-job-runner/cjr/releases/download/v0.3.0-alpha/cjr-v0.3.0-linux-x64.tar.gz
-    tar -xzf cjr-v0.3.0-linux-x64.tar.gz
+    wget --quiet https://github.com/container-job-runner/cjr/releases/download/v0.4.1-alpha/cjr-v0.4.1-linux-x64.tar.gz
+    tar -xzf cjr-v0.4.1-linux-x64.tar.gz
+    mkdir -p /usr/local/bin
     ln -s /opt/cjr/bin/cjr /usr/local/bin/cjr
-    rm cjr-v0.3.0-linux-x64.tar.gz
+    rm cjr-v0.4.1-linux-x64.tar.gz
 fi
