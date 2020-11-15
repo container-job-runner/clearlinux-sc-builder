@@ -29,6 +29,7 @@
 # ---- Software ----------------------------------------------------------------
 #     ASW_SPACK       TRUE => Spack
 #     ASW_VNC         TRUE => Tiger VNC
+#     ASW_SLURM       TRUE => Slurm
 #     ASW_CJR         TRUE => installs cjr inside the container
 #
 # ---- Additional options ------------------------------------------------------
@@ -70,6 +71,7 @@ pkg_dev_cli=('vim' 'git' 'tmux' 'emacs')
 # -- 1.4 Packages: additional software -----------------------------------------
 pkg_asw_spack=('c-basic' 'python-basic' 'git' 'curl' 'patch' 'gnupg')
 pkg_asw_vnc=('desktop-autostart vnc-server xfce4-desktop')
+pkg_asw_slurm=('cluster-tools')
 pkg_asw_cjr=('wget' 'rsync')
 
 # -- Add packages to pkgs array ------------------------------------------------
@@ -133,6 +135,9 @@ if [ "$ASW_SPACK" = "TRUE" ] ; then
 
 if [ "$ASW_VNC" = "TRUE" ] ; then
   pkgs=("${pkgs[@]}" "${pkg_asw_vnc[@]}") ; fi
+
+if [ "$ASW_SLURM" = "TRUE" ] ; then
+  pkgs=("${pkgs[@]}" "${pkg_asw_slurm[@]}") ; fi  
 
 if [ "$ASW_CJR" = "TRUE" ] ; then
   pkgs=("${pkgs[@]}" "${pkg_asw_cjr[@]}") ; fi
