@@ -30,6 +30,7 @@
 #     ASW_SPACK       TRUE => Spack
 #     ASW_VNC         TRUE => Tiger VNC
 #     ASW_SLURM       TRUE => Slurm
+#     ASW_SSHD        TRUE => SSHD
 #     ASW_CJR         TRUE => installs cjr inside the container
 #
 # ---- Additional options ------------------------------------------------------
@@ -71,6 +72,7 @@ pkg_dev_cli=('vim' 'git' 'tmux' 'emacs')
 # -- 1.4 Packages: additional software -----------------------------------------
 pkg_asw_spack=('c-basic' 'python-basic' 'git' 'curl' 'patch' 'gnupg')
 pkg_asw_vnc=('desktop-autostart vnc-server xfce4-desktop')
+pkg_asw_sshd=('openssh-server')
 pkg_asw_slurm=('cluster-tools')
 pkg_asw_cjr=('wget' 'rsync')
 
@@ -141,6 +143,9 @@ if [ "$ASW_SLURM" = "TRUE" ] ; then
 
 if [ "$ASW_CJR" = "TRUE" ] ; then
   pkgs=("${pkgs[@]}" "${pkg_asw_cjr[@]}") ; fi
+
+if [ "$ASW_SSHD" = "TRUE" ] ; then
+  pkgs=("${pkgs[@]}" "${pkg_asw_sshd[@]}") ; fi
 
 # -- remove redundant elements then install (requires bash 4+) -----------------
 declare -A pkgsUniq

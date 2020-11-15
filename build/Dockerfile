@@ -64,6 +64,7 @@ ARG DEV_CLI
 # ----> ARGS: additional software
 ARG ASW_SPACK
 ARG ASW_VNC
+ARG ASW_SSHD
 ARG ASW_SLURM
 ARG ASW_CJR
 # ----> ARGS: additional options
