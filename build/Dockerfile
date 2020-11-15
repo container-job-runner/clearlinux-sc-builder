@@ -38,6 +38,7 @@ RUN if [ "$LANG_OCTAVE" = "TRUE" ] ; then \
     tar -xzf /usr/include/octave-5.2.0.tar.gz ; \
     rm /usr/include/octave-5.2.0.tar.gz ; \
     fi
+RUN mkdir -p /usr/include/octave-5.2.0
 
 # == 3. main Dockerfile: Clear Linux ===========================================
 FROM clearlinux:latest
