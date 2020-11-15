@@ -6,14 +6,21 @@ build:
     LANG_PYTHON3: "TRUE"
     LANG_JULIA: "TRUE"
     LANG_LATEX: "TRUE"
+    LANG_OCTAVE: "TRUE"
     LANG_R: "TRUE"
     # ---- libraries -----------------------------------------------------------
     LIB_MATPLOTLIB : "TRUE"
     LIB_LINALG : "TRUE"
     LIB_OPENMPI: "TRUE"
     LIB_X11: "TRUE"
+    LIB_RAY: "TRUE"
     # ---- dev enviroment ------------------------------------------------------
     DEV_JUPYTER: "TRUE"
     DEV_THEIA: "TRUE"
     DEV_CLI: "TRUE"
-    CJR: "TRUE"
+    # ---- additional software -------------------------------------------------
+    ASW_SPACK: "TRUE"
+    ASW_VNC: "TRUE"
+    ASW_SSHD: "TRUE"
+    ASW_SLURM: "TRUE"
+    ASW_CJR: "TRUE"
