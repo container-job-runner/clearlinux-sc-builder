@@ -169,14 +169,11 @@ if [ "$LANG_JULIA" = "TRUE" ] ; then
   mkdir -p /opt
   mkdir -p /usr/local/bin/
   cd /opt
-  wget --quiet https://julialang-s3.julialang.org/bin/linux/x64/1.4/julia-1.4.2-linux-x86_64.tar.gz
-  tar -xzf julia-1.4.2-linux-x86_64.tar.gz
-  ln -s /opt/julia-1.4.2/bin/julia /usr/local/bin/julia
-  rm julia-1.4.2-linux-x86_64.tar.gz
-    # PyPlots fix: overwrite outdated libstdc which has lower version than the system and causes problems when building PyPlot
-    # https://github.com/JuliaLang/julia/issues/34276
-    # https://discourse.julialang.org/t/glibcxx-3-4-26-not-found-in-rcall/29113/10
-    cp /usr/lib64/libstdc++.so.6 /opt/julia-1.4.2/lib/julia
+  wget --quiet https://julialang-s3.julialang.org/bin/linux/x64/1.5/julia-1.5.3-linux-x86_64.tar.gz
+  tar -xzf julia-1.5.3-linux-x86_64.tar.gz
+  mkdir -p /usr/local/bin
+  ln -s /opt/julia-1.5.3/bin/julia /usr/local/bin/julia
+  rm julia-1.5.3-linux-x86_64.tar.gz
 fi
 
 # -- Jupyter -------------------------------------------------------------------
