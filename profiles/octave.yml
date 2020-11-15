@@ -1,0 +1,7 @@
+build:
+  args:
+    # ---- languages -----------------------------------------------------------
+    LANG_OCTAVE: "TRUE"
+    LIB_OPENMPI: "TRUE"
+    # ---- dev enviroment ------------------------------------------------------
+    DEV_CLI: "TRUE"

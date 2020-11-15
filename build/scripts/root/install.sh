@@ -11,6 +11,7 @@
 #     LANG_PYTHON3    TRUE => Python3 language installed
 #     LANG_JULIA      TRUE => Julia language installed
 #     LANG_R          TRUE => R languag installed
+#     LANG_OCTAVE     TRUE => Octave programming language
 #     LANG_LATEX      TRUE => Latex installed
 #
 # ---- Libraries ---------------------------------------------------------------
@@ -46,11 +47,12 @@ pkg_lang_fortran=('c-basic' 'gdb');
 pkg_lang_python3=('python3-basic' 'python-data-science')
 pkg_lang_julia=('wget' 'qt5-dev')
 pkg_lang_R=('R-basic' 'R-extras')
+pkg_lang_octave=('octave' 'c-basic' 'devpkg-gnutls' 'texinfo') # devpkg-gnutls required for auth in parallel package
 pkg_lang_latex=('texlive')
 
 # -- 1.2 Packages: libraries  -------------------------------------------------
 pkg_lib_linAlg=('openblas' 'devpkg-fftw')
-pkg_lib_openMPI=('openmpi')
+pkg_lib_openMPI=('openmpi' 'devpkg-openmpi')
 pkg_lib_matPlotLib=('python-data-science')
 pkg_lib_x11=('x11-tools' 'x11-server')
 
@@ -79,6 +81,9 @@ pkgs=("${pkgs[@]}" "${pkg_lang_julia[@]}") ; fi
 
 if [ "$LANG_R" = "TRUE" ] ; then
   pkgs=("${pkgs[@]}" "${pkg_lang_R[@]}") ; fi
+
+if [ "$LANG_OCTAVE" = "TRUE" ] ; then
+  pkgs=("${pkgs[@]}" "${pkg_lang_octave[@]}") ; fi
 
 if [ "$LANG_LATEX" = "TRUE" ] ; then
   pkgs=("${pkgs[@]}" "${pkg_lang_latex[@]}") ; fi
@@ -200,6 +205,29 @@ if [ "$DEV_JUPYTER" = "TRUE" ] ; then
   #   # 3. fortran_magic      https://github.com/mgaitan/fortran_magic
   # fi
 fi
+
+# -----> Octave
+if [ "$LANG_OCTAVE" = "TRUE" ] ; then
+    octave --no-gui --no-window-system --eval 'pkg install -global -forge struct'
+    octave --no-gui --no-window-system --eval 'pkg install -global -forge parallel' 
+    if [ "$LIB_OPENMPI" = "TRUE" ] ; then  
+        # Once https://github.com/carlodefalco/octave-mpi/issues/4 is resolved
+        # --> Update url and uncomment:        
+        # octave --eval 'pkg install -global https://github.com/carlodefalco/octave-mpi/releases/download/v3.1.0/mpi-3.1.0.tar.gz'        
+        # --> remove section below ---------------------------------------------
+        cd /opt
+        OCTAVE_MPI_DIR="octave-mpi"
+        git clone https://github.com/carlodefalco/octave-mpi.git $OCTAVE_MPI_DIR
+        cd $OCTAVE_MPI_DIR
+        git checkout d220cdd824cb6f757a6af513ee470a8e60a14153
+        rm -rf .git
+        cd ../
+        tar czf "$OCTAVE_MPI_DIR.tar.gz" $OCTAVE_MPI_DIR
+        rm -rf $OCTAVE_MPI_DIR
+        octave --no-gui --no-window-system --eval "pkg install -global octave-mpi.tar.gz"
+        # ----------------------------------------------------------------------
+    fi
+fi 
 
 # -- Theia ---------------------------------------------------------------------
 if [ "$DEV_THEIA" = "TRUE" ] ; then

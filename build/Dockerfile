@@ -29,7 +29,17 @@ RUN if [ "$DEV_THEIA" = "TRUE" ] ; then \
 RUN echo -e '#!/bin/bash\nyarn --cwd '$THEIA_INSTALL_DIR' start $@' > /root/theia_launcher ; \
     chmod a+x /root/theia_launcher ;
 
-# == 2. main Dockerfile: Clear Linux ===========================================
+# == 2. build stage: Octave Dev Libraries ======================================
+FROM clearlinux:latest as octave_devel_builder
+ARG LANG_OCTAVE
+COPY octave-5.2.0.tar.gz /usr/include
+WORKDIR /usr/include
+RUN if [ "$LANG_OCTAVE" = "TRUE" ] ; then \
+    tar -xzf /usr/include/octave-5.2.0.tar.gz ; \
+    rm /usr/include/octave-5.2.0.tar.gz ; \
+    fi
+
+# == 3. main Dockerfile: Clear Linux ===========================================
 FROM clearlinux:latest
 
 # ----> ARGS: languages
@@ -38,6 +48,7 @@ ARG LANG_FORTRAN
 ARG LANG_PYTHON3
 ARG LANG_JULIA
 ARG LANG_R
+ARG LANG_OCTAVE
 ARG LANG_LATEX
 # ----> ARGS: libraries
 ARG LIB_MATPLOTLIB
@@ -61,6 +72,7 @@ WORKDIR /opt/build-scripts
 COPY scripts/root/ ./
 RUN chmod -R +x ./
 # -- install root dependencies -------------------------------------------------
+COPY --from=octave_devel_builder /usr/include/octave-5.2.0 /usr/include/octave-5.2.0
 RUN ./install.sh
 COPY --from=theia_builder /root/theia $THEIA_INSTALL_DIR
 COPY --from=theia_builder /root/theia_launcher /usr/local/bin/theia
