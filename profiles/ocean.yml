@@ -1,0 +1,20 @@
+build:
+  args:
+    # ---- languages -----------------------------------------------------------
+    LANG_C: "TRUE"
+    LANG_FORTRAN: "TRUE"
+    LANG_PYTHON3: "TRUE"
+    LANG_JULIA: "TRUE"
+    LANG_OCTAVE: "TRUE"
+    # ---- libraries -----------------------------------------------------------
+    LIB_MATPLOTLIB : "TRUE"
+    LIB_LINALG : "TRUE"
+    LIB_OPENMPI: "TRUE"
+    LIB_X11: "TRUE"
+    LIB_RAY: "TRUE"
+    # ---- dev enviroment ------------------------------------------------------
+    DEV_JUPYTER: "TRUE"
+    DEV_CLI: "TRUE"
+    # ---- additional software -------------------------------------------------
+    ASW_VNC: "TRUE"
+    ASW_SLURM: "TRUE"
