@@ -18,6 +18,7 @@
 #     LIB_LINALG      TRUE => Linear algebra libraries BLAS, LAPACK and FFTW
 #     LIB_OPENMPI     TRUE => openmpi (loaded using module load mpi)
 #     LIB_X11         TRUE => basic x11 libraries and Xvfb
+#     LIB_RAY         TRUE => python Ray library
 #
 # ---- Dev Environemnts --------------------------------------------------------
 #     DEV_JUPYTER     TRUE => Jupyter Notebook And Jupyter Lab with support for
@@ -59,6 +60,7 @@ pkg_lib_linAlg=('openblas' 'devpkg-fftw')
 pkg_lib_openMPI=('openmpi' 'devpkg-openmpi')
 pkg_lib_matPlotLib=('python-data-science')
 pkg_lib_x11=('x11-tools' 'x11-server')
+pkg_lib_ray=('python-data-science' 'c-basic')
 
 # -- 1.3 Packages: development environments   ----------------------------------
 pkg_dev_jupyter=('jupyter' 'nodejs-basic')
@@ -109,6 +111,9 @@ if [ "$LIB_MATPLOTLIB" = "TRUE" ] ; then
 
 if [ "$LIB_X11" = "TRUE" ] ; then
   pkgs=("${pkgs[@]}" "${pkg_lib_x11[@]}") ; fi
+
+if [ "$LIB_RAY" = "TRUE" ] ; then
+  pkgs=("${pkgs[@]}" "${pkg_lib_ray[@]}") ; fi
 
 # ----> development environments
 
@@ -226,7 +231,12 @@ if [ "$LANG_OCTAVE" = "TRUE" ] ; then
         octave --no-gui --no-window-system --eval "pkg install -global octave-mpi.tar.gz"
         # ----------------------------------------------------------------------
     fi
-fi 
+fi
+
+# -----> Ray
+if [ "$LIB_RAY" = "TRUE" ] ; then
+    pip3 install ray
+fi
 
 # -- Theia ---------------------------------------------------------------------
 if [ "$DEV_THEIA" = "TRUE" ] ; then
