@@ -159,6 +159,11 @@ if [ "$EMPTYHOME" = "TRUE" ] ; then
     chmod -R 2775 /opt/shared/
 fi
 
+# -----> Python
+if [ "$LANG_PYTHON3" = "TRUE" ] && [ "$LIB_OPENMPI" = "TRUE" ] ; then
+    pip3 install mpi4py
+fi
+
 # -- Julia ---------------------------------------------------------------------
 if [ "$LANG_JULIA" = "TRUE" ] ; then
   mkdir -p /opt
