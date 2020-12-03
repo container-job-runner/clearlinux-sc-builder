@@ -17,4 +17,5 @@ build:
     DEV_CLI: "TRUE"
     # ---- additional software -------------------------------------------------
     ASW_VNC: "TRUE"
+    ASW_SSHD: "TRUE"
     ASW_SLURM: "TRUE"
