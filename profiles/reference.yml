@@ -20,3 +20,6 @@ build:
     DEV_JUPYTER: "TRUE"
     DEV_THEIA: "TRUE"
     DEV_CLI: "TRUE"
+    # --- additional software --------------------------------------------------
+    ASW_VNC: "TRUE"
+    ASW_VNC_PASSWORD: "password"
