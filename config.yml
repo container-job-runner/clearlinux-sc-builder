@@ -46,6 +46,6 @@ mounts:
 files:
   containerRoot: "/home/user"
 flags:
-  userns: keep-id
-  chown-file-volume: "host-user"
+  podman-userns: keep-id
+  docker-chown-file-volume: "host-user"
   cmd-args: join
