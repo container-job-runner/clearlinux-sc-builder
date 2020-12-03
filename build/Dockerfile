@@ -70,6 +70,7 @@ ARG ASW_CJR
 # ----> ARGS: additional options
 ARG EMPTYHOME
 ARG THEIA_INSTALL_DIR
+ARG ASW_VNC_PASSWORD=password
 
 # -- copy root install files to /opt/build-scripts -----------------------------
 RUN mkdir -p /opt/build-scripts/
@@ -94,11 +95,16 @@ ARG DYNAMIC_USERMOD
 # -- Generate restricted user account ------------------------------------------
 RUN /opt/build-scripts/user-create.sh
 
+# -- copy user config files to ~/.build-config
+RUN mkdir -p "/home/$USER_NAME/.build/config"
+WORKDIR "/home/$USER_NAME/.build/config"
+COPY config/user/ ./
 # -- copy user install scripts to ~/.build-scripts -----------------------------
-RUN mkdir "/home/$USER_NAME/.build-scripts"
-WORKDIR "/home/$USER_NAME/.build-scripts"
+RUN mkdir -p "/home/$USER_NAME/.build/scripts"
+WORKDIR "/home/$USER_NAME/.build/scripts"
 COPY scripts/user/ ./
-RUN chown -R $USER_ID:$GROUP_ID ./
+RUN chown -R $USER_ID:$GROUP_ID "/home/$USER_NAME/.build"
+
 USER $USER_NAME
 RUN chmod -R +x ./
 # -- install user dependencies -------------------------------------------------
@@ -110,7 +116,10 @@ RUN /opt/build-scripts/install-extra.sh
 
 # -- install extra user dependencies (placed here to prevent full rebuild) -----
 USER $USER_NAME
-RUN /home/$USER_NAME/.build-scripts/install-extra.sh
+RUN /home/$USER_NAME/.build/scripts/install-extra.sh
+
+# -- remove user build directory -----------------------------------------------
+RUN rm -r /home/$USER_NAME/.build
 
 WORKDIR "/home/$USER_NAME"
 ENTRYPOINT [ "/opt/build-scripts/entrypoint.sh"]
