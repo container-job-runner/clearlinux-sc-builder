@@ -27,7 +27,10 @@ build:
     DEV_CLI: "FALSE"
     # ---- additional software -------------------------------------------------
     ASW_SPACK: "FALSE"
+    ASW_SSHD: "FALSE"
+    ASW_SLURM: "FALSE"
     ASW_VNC: "FALSE"
+    ASW_VNC_PASSWORD: "password"
 environment:
   USE_LOCAL_GIT: "true" # used by theia (https://github.com/eclipse-theia/theia/issues/1964)
 mounts:
