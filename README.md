@@ -31,8 +31,11 @@ This stack creates a non-root user with matching user id and group id as the hos
    - Jupyter notebook, JupyterLab
    - Theia
    - vim, git, vim, emacs, tmux
-4. **Package Managers**
+4. **Additional Software**
    - spack
+   - tigervnc
+   - slurm
+   - sshd
 
 Configurations for Jupyter and Theia are respectively stored the directories config/jupyter and config/theia which are bound to ~/.jupyter and ~/.theia in the container.
 
