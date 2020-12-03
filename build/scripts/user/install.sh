@@ -97,3 +97,19 @@ if [ "$DEV_THEIA" = "TRUE" ] ; then
         chmod -R g+w $NVM_DIR/* /opt/shared/npm/*
     fi
 fi
+
+# -- VNC -----------------------------------------------------------------------
+if [ "$ASW_VNC" = "TRUE" ] ; then
+    # ---> copy vnc config files
+    mkdir -p ~/.vnc    
+    mv ~/.build/config/vnc/{config,xstartup} ~/.vnc/
+    chmod u+x ~/.vnc/xstartup
+    # ----> set vnc password
+    echo -e "$ASW_VNC_PASSWORD" | vncpasswd -f > ~/.vnc/passwd
+    chmod 0600 ~/.vnc/passwd
+    # ---> # set application defaults 
+    # REMARK: defaults should be part of the package clr-desktop-default, however, default don't load in vnc. 
+    # Configuration was taken from (https://github.com/clearlinux-pkgs/clr-desktop-defaults/blob/master/Makefile -> https://github.com/clearlinux/clr-desktop-defaults/archive/v21.tar.gz)
+    mkdir -p ~/.config
+    cp ~/.build/config/vnc/mimeapps.list ~/.config/mimeapps.list
+fi
