@@ -8,7 +8,7 @@ build:
     USER_NAME: "user"
     USER_PASSWORD: "Vh5kPbnwBV"
     ROOT_PASSWORD: "mZFxFcAt62"
-    GRANT_SUDO: "TRUE"
+    GRANT_SUDO: "PASSWORDLESS"
     # ---- languages -----------------------------------------------------------
     LANG_C: "FALSE"
     LANG_FORTRAN: "FALSE"
