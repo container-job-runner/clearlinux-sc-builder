@@ -199,6 +199,10 @@ if [ "$DEV_JUPYTER" = "TRUE" ] ; then
     # --> R Kernel for Jupyter (https://irkernel.github.io/installation/)
     R -e 'r = getOption("repos"); r["CRAN"] = "https://cloud.r-project.org/"; install.packages(c("repr", "IRdisplay", "IRkernel"), repos = r, type = "source");'
   fi
+  if [ "$DEV_CLI" = "TRUE" ] ; then
+    pip3 install --upgrade jupyterlab jupyterlab-git
+    jupyter lab build
+  fi
   # if [ "$LANG_FORTRAN" = "TRUE" ] ; then
   #   # possible options to add later:
   #   # 1. fortran coarrays   https://github.com/sourceryinstitute/OpenCoarrays/blob/master/INSTALL.md
