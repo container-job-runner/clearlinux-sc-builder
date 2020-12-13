@@ -31,7 +31,6 @@
 #     ASW_VNC         TRUE => Tiger VNC
 #     ASW_SLURM       TRUE => Slurm
 #     ASW_SSHD        TRUE => SSHD
-#     ASW_CJR         TRUE => installs cjr inside the container
 #
 # ---- Additional options ------------------------------------------------------
 #
@@ -71,7 +70,6 @@ pkg_asw_spack=('c-basic' 'python-basic' 'git' 'curl' 'patch' 'gnupg')
 pkg_asw_vnc=('desktop-autostart vnc-server xfce4-desktop')
 pkg_asw_sshd=('openssh-server')
 pkg_asw_slurm=('cluster-tools')
-pkg_asw_cjr=('wget' 'rsync')
 
 # -- Add packages to pkgs array ------------------------------------------------
 declare -a pkgs=('sudo' 'sysadmin-basic'); # basic packages required for usage
@@ -137,9 +135,6 @@ if [ "$ASW_VNC" = "TRUE" ] ; then
 
 if [ "$ASW_SLURM" = "TRUE" ] ; then
   pkgs=("${pkgs[@]}" "${pkg_asw_slurm[@]}") ; fi  
-
-if [ "$ASW_CJR" = "TRUE" ] ; then
-  pkgs=("${pkgs[@]}" "${pkg_asw_cjr[@]}") ; fi
 
 if [ "$ASW_SSHD" = "TRUE" ] ; then
   pkgs=("${pkgs[@]}" "${pkg_asw_sshd[@]}") ; fi
@@ -248,14 +243,4 @@ if [ "$DEV_THEIA" = "TRUE" ] ; then
     if [ "$LANG_PYTHON3" = "TRUE" ] ; then
         pip3 install pylint
     fi
-fi
-
-# -- cjr -----------------------------------------------------------------------
-if [ "$ASW_CJR" = "TRUE" ] ; then
-    cd /opt
-    wget --quiet https://github.com/container-job-runner/cjr/releases/download/v0.4.1-alpha/cjr-v0.4.1-linux-x64.tar.gz
-    tar -xzf cjr-v0.4.1-linux-x64.tar.gz
-    mkdir -p /usr/local/bin
-    ln -s /opt/cjr/bin/cjr /usr/local/bin/cjr
-    rm cjr-v0.4.1-linux-x64.tar.gz
 fi

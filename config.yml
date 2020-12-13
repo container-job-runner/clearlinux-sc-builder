@@ -42,9 +42,6 @@ mounts:
   - type: "bind"
     hostPath: "config/theia"
     containerPath: "/home/user/.theia"
-  - type: "bind"
-    hostPath: "config/cjr"
-    containerPath: "/home/user/.config/cjr"
 files:
   containerRoot: "/home/user"
 flags:

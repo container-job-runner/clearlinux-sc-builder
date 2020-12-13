@@ -23,4 +23,3 @@ build:
     ASW_VNC: "TRUE"
     ASW_SSHD: "TRUE"
     ASW_SLURM: "TRUE"
-    ASW_CJR: "TRUE"
