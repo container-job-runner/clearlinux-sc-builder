@@ -1,6 +1,5 @@
 build:
   args:
-    EMPTYHOME: "TRUE"
     DYNAMIC_USERMOD: "TRUE"
 environment:
   JULIA_DEPOT_PATH: "/opt/shared/julia-depot" # used in place of ~/.julia
