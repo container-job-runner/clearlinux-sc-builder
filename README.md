@@ -54,8 +54,9 @@ To modify the package install process, modify the files
 **Profiles:** 
 This stack contains the following profiles:
 - all : installs everything.
-- dynamic: enables dynamic uid and gid on container startup to match host user.
-- *LANGUAGE*-*IDE* where LANGUAGE can be either 'fortran', 'python', or 'julia' and IDE can be 'jupyter' or 'theia'.
+- reference: used to build official cjr clearlinux-sc image
+- *LANGUAGE-IDE* where LANGUAGE can be either 'fortran', 'python', or 'julia' and IDE can be 'jupyter' or 'theia'.
+- *LANGUAGE* where LANGUAGE can be either 'c', 'fortran', 'python', 'julia', or 'octave'
 
 **Theia Plugins:**  
 Additional plugins can be installed by adding .vsix extension files to the directory config/theia/plugins. VS Code Python, C/C++, and Fortran plugins are already included.
