@@ -58,8 +58,13 @@ This stack contains the following profiles:
 - *LANGUAGE-IDE* where LANGUAGE can be either 'fortran', 'python', or 'julia' and IDE can be 'jupyter' or 'theia'.
 - *LANGUAGE* where LANGUAGE can be either 'c', 'fortran', 'python', 'julia', or 'octave'
 
-**Theia Plugins:**  
-Additional plugins can be installed by adding .vsix extension files to the directory config/theia/plugins. VS Code Python, C/C++, and Fortran plugins are already included.
+**Theia Plugins**:
+Additional plugins can be installed by adding .vsix extension files to the directory config/theia/plugins. Note that Theia does not yet support all vs code extensions correctly, especially the latest versions. Several recommended extensions and their versions are:
+
+- *Python*: [vscode-python](https://github.com/microsoft/vscode-python), version [2019.11.50794](https://github.com/microsoft/vscode-python/releases/tag/2019.11.50794).
+- *Julia*: [julia-vscode](https://github.com/julia-vscode/julia-vscode), version [0.15.40](https://github.com/julia-vscode/julia-vscode/releases/tag/v0.15.40).
+- *C/C++*: [vscode-cpptools](https://github.com/Microsoft/vscode-cpptools), version [0.28.3](https://github.com/microsoft/vscode-cpptools/releases/tag/0.28.3).
+- *Fortran*: [Modern Fortran](https://github.com/krvajal/vscode-fortran-support), version [2.2.1](https://marketplace.visualstudio.com/items?itemName=krvajalm.linter-gfortran). (Requires vscode-cpptools)
 
 **Container User Settings:**
 Finally, the container user's username, password, and sudo privileges can be modified by adjusting the user args in config.yml
