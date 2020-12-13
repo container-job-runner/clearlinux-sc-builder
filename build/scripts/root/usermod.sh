@@ -21,7 +21,7 @@ fi
 
 # -- modify user id ------------------------------------------------------------
 if [ -n "$DYNAMIC_USER" ] && [ -n "$DYNAMIC_UID" ] && [ "$(id -u $DYNAMIC_USER)" != "$DYNAMIC_UID" ] ; then
-    usermod -u $DYNAMIC_UID -g $DYNAMIC_GID $DYNAMIC_USER
+    usermod -o -u $DYNAMIC_UID -g $DYNAMIC_GID $DYNAMIC_USER
     USER_CHANGE="TRUE"
 fi
 
