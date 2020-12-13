@@ -34,9 +34,6 @@
 #     ASW_CJR         TRUE => installs cjr inside the container
 #
 # ---- Additional options ------------------------------------------------------
-#      EMPTYHOME      TRUE => directories will be created for storing program
-#                             data in the /opt/shared directory instead of ~/
-#                             and a new group will be created for ownership.
 #
 # NOTE: To add extra dependancies for any language, library, or development
 # environment that can be installed with swupd simply add an entry to the arrays
@@ -156,18 +153,6 @@ echo "$pkg_manager bundle-add ${!pkgsUniq[@]}"
 eval $pkg_manager bundle-add ${!pkgsUniq[@]}
 
 # == STEP 2: Install Additional Packages =======================================
-
-# -- create folder and associated group for storing app files ------------------
-# This allows for rapid user id manipulation using usermod, since files are not
-# stored in home directory
-if [ "$EMPTYHOME" = "TRUE" ] ; then
-    mkdir -p /opt/shared/
-    mkdir -p /opt/shared/julia-depot # directory that will be used in place of ~/.julia
-    mkdir -p /opt/shared/{nvm,npm} # directory that will be used in place of ~/.nvm and ~/.npm
-    groupadd shared
-    chgrp -R shared /opt/shared/
-    chmod -R 2775 /opt/shared/
-fi
 
 # -----> Python
 if [ "$LANG_PYTHON3" = "TRUE" ] && [ "$LIB_OPENMPI" = "TRUE" ] ; then

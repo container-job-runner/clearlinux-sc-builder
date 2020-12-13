@@ -69,9 +69,9 @@ ARG ASW_SSHD
 ARG ASW_SLURM
 ARG ASW_CJR
 # ----> ARGS: additional options
-ARG EMPTYHOME
 ARG THEIA_INSTALL_DIR
 ARG ASW_VNC_PASSWORD=password
+ARG SHARED_STORAGE_DIR=/opt/shared
 
 # -- copy root install files to /opt/build-scripts -----------------------------
 RUN mkdir -p /opt/build-scripts/

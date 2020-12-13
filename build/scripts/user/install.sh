@@ -28,11 +28,13 @@
 # ------------------------------------------------------------------------------
 
 # -- Julia packages ------------------------------------------------------------
-if [ "$LANG_JULIA" = "TRUE" ] && [ "$EMPTYHOME" = "TRUE" ] ; then
-    export JULIA_DEPOT_PATH=/opt/shared/julia-depot # change default package install directory
-fi
-
 if [ "$LANG_JULIA" = "TRUE" ] ; then
+    # ----> shared depot directory
+    if [ -n "$SHARED_STORAGE_DIR" ] ; then
+        export JULIA_DEPOT_PATH="$SHARED_STORAGE_DIR/julia-depot"
+        mkdir -p "$JULIA_DEPOT_PATH"
+        echo "export JULIA_DEPOT_PATH='$JULIA_DEPOT_PATH'" >> ~/.bashrc
+    fi
     # ----> plotters
     if [ "$LIB_MATPLOTLIB" = "TRUE" ] ; then
         julia -e 'import Pkg; Pkg.add("PyPlot"); using PyPlot'
@@ -48,10 +50,10 @@ if [ "$LANG_JULIA" = "TRUE" ] ; then
     if [ "$LIB_OPENMPI" = "TRUE" ] ; then
         julia -e 'ENV["JULIA_MPI_BINARY"]="system"; import Pkg; Pkg.add("MPI"); using MPI'
     fi
-
     # ----> fix permissions for non-local folders (see: https://github.com/JuliaLang/julia/issues/12876)
-    if [ "$EMPTYHOME" = "TRUE" ] ; then
-        chmod -R g+w $JULIA_DEPOT_PATH/*
+    if [ -n "$SHARED_STORAGE_DIR" ] ; then
+        chown -R :shared "$JULIA_DEPOT_PATH"
+        chmod -R 774 "$JULIA_DEPOT_PATH"
     fi
 fi
 
@@ -78,9 +80,10 @@ fi
 
 # -- Theia ---------------------------------------------------------------------
 if [ "$DEV_THEIA" = "TRUE" ] ; then
-    if [ "$EMPTYHOME" = "TRUE" ] ; then
-        export NVM_DIR=/opt/shared/nvm # change default package install directory
-    fi    
+    if [ -n "$SHARED_STORAGE_DIR" ] ; then
+        export NVM_DIR="$SHARED_STORAGE_DIR/nvm" # change default nvm install directory
+        mkdir -p "$NVM_DIR"
+    fi   
     # ----> install nvm (https://github.com/nvm-sh/nvm)
     wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | bash
     source ~/.bashrc
@@ -88,13 +91,16 @@ if [ "$DEV_THEIA" = "TRUE" ] ; then
     nvm install lts/erbium
     nvm use lts/erbium
     # ---> install yarn
-    if [ "$EMPTYHOME" = "TRUE" ] ; then
-        npm config set cache /opt/shared/npm
+    if [ -n "$SHARED_STORAGE_DIR" ] ; then
+        NPM_DIR="$SHARED_STORAGE_DIR/npm"
+        mkdir -p "$NPM_DIR"
+        npm config set cache "$NPM_DIR"
     fi
     npm install -g yarn
     # ----> fix permissions for non-local folders (see: https://github.com/JuliaLang/julia/issues/12876)
-    if [ "$EMPTYHOME" = "TRUE" ] ; then
-        chmod -R g+w $NVM_DIR/* /opt/shared/npm/*
+    if [ -n "$SHARED_STORAGE_DIR" ] ; then
+        chown -R :shared "$NVM_DIR" "$NPM_DIR"
+        chmod -R 774 "$NVM_DIR" "$NPM_DIR"
     fi
 fi
 

@@ -13,7 +13,8 @@
 #                       sudo, TRUE enables password-based sudo unless password 
 #                       is empty in which case it grades passwordless sudo.
 # ------------------------------------------------------------------------------
-#     EMPTYHOME       if "TRUE" then the user will be added to group "shared"
+#     SHARED_STORAGE_DIR  if non empty then the directory will be created and
+#                         the group ownership set to "shared"
 #     DYNAMIC_USER    if "TRUE" then passwordless execution is enabled for 
 #                     usermod script "/opt/build-scripts/usermod.sh"
 # ------------------------------------------------------------------------------
@@ -45,8 +46,12 @@ elif [ "$GRANT_SUDO" = "TRUE" ] ; then
 fi
 
 # -- add user to shared group --------------------------------------------------
-if [ "$EMPTYHOME" = "TRUE" ] ; then
-    usermod -aG shared $USER_NAME
+groupadd shared
+usermod -aG shared $USER_NAME
+if [ -n "$SHARED_STORAGE_DIR" ] ; then
+    mkdir -p "$SHARED_STORAGE_DIR"
+    chown :shared "$SHARED_STORAGE_DIR"
+    chmod 774 "$SHARED_STORAGE_DIR"
 fi
 
 # -- add passwordless sudo for special entrypoint  ------------------------------
