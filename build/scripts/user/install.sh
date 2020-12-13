@@ -82,11 +82,11 @@ if [ "$DEV_THEIA" = "TRUE" ] ; then
         export NVM_DIR=/opt/shared/nvm # change default package install directory
     fi    
     # ----> install nvm (https://github.com/nvm-sh/nvm)
-    wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+    wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | bash
     source ~/.bashrc
-    # ---> install nvm
-    nvm install lts/dubnium
-    nvm use lts/dubnium
+    # --> install latest node 12 (erbium)
+    nvm install lts/erbium
+    nvm use lts/erbium
     # ---> install yarn
     if [ "$EMPTYHOME" = "TRUE" ] ; then
         npm config set cache /opt/shared/npm
