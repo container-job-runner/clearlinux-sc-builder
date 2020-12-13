@@ -78,13 +78,8 @@ RUN mkdir -p /opt/build-scripts/
 WORKDIR /opt/build-scripts
 COPY scripts/root/ ./
 RUN chmod -R +x ./
-# -- install root dependencies -------------------------------------------------
-COPY --from=octave_devel_builder /usr/include/octave-5.2.0 /usr/include/octave-5.2.0
-RUN ./install.sh
-COPY --from=theia_builder /root/theia $THEIA_INSTALL_DIR
-COPY --from=theia_builder /root/theia_launcher /usr/local/bin/theia
 
-# ----> ARGS: user (placed here to prevent full rebuild)
+# == User Creation ==============================================================
 ARG USER_NAME=user
 ARG USER_PASSWORD
 ARG GRANT_SUDO=false
@@ -95,6 +90,14 @@ ARG DYNAMIC_USERMOD
 
 # -- Generate restricted user account ------------------------------------------
 RUN /opt/build-scripts/user-create.sh
+
+# == Software Installation (Root) ===============================================
+COPY --from=octave_devel_builder /usr/include/octave-5.2.0 /usr/include/octave-5.2.0
+RUN ./install.sh
+COPY --from=theia_builder /root/theia $THEIA_INSTALL_DIR
+COPY --from=theia_builder /root/theia_launcher /usr/local/bin/theia
+
+# == Software Installation (User) ===============================================
 
 # -- copy user config files to ~/.build-config
 RUN mkdir -p "/home/$USER_NAME/.build/config"
