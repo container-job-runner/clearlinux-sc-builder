@@ -31,15 +31,14 @@ RUN echo -e '#!/bin/bash\nyarn --cwd '$THEIA_INSTALL_DIR' start $@' > /root/thei
     chmod a+x /root/theia_launcher ;
 
 # == 2. build stage: Octave Dev Libraries ======================================
-FROM clearlinux:latest as octave_devel_builder
+# This stage runs very slowly; unfortunately there are no small bundles that octave dev libraries
+FROM clearlinux:latest as octave_devel_builder 
 ARG LANG_OCTAVE
-COPY octave-5.2.0.tar.gz /usr/include
-WORKDIR /usr/include
+RUN mkdir /builder-includes 
 RUN if [ "$LANG_OCTAVE" = "TRUE" ] ; then \
-    tar -xzf /usr/include/octave-5.2.0.tar.gz ; \
-    rm /usr/include/octave-5.2.0.tar.gz ; \
+    swupd bundle-add R-extras-dev ; \
+    cp -r /usr/include/octave-* /builder-includes ; \
     fi
-RUN mkdir -p /usr/include/octave-5.2.0
 
 # == 3. main Dockerfile: Clear Linux ===========================================
 FROM clearlinux:latest
@@ -91,7 +90,7 @@ ARG DYNAMIC_USERMOD
 RUN /opt/build-scripts/user-create.sh
 
 # == Software Installation (Root) ===============================================
-COPY --from=octave_devel_builder /usr/include/octave-5.2.0 /usr/include/octave-5.2.0
+COPY --from=octave_devel_builder /builder-includes /usr/include/
 RUN ./install.sh
 COPY --from=theia_builder /root/theia $THEIA_INSTALL_DIR
 COPY --from=theia_builder /root/theia_launcher /usr/local/bin/theia
