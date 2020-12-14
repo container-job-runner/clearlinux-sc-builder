@@ -61,7 +61,7 @@ pkg_lib_x11=('x11-tools' 'x11-server')
 pkg_lib_ray=('python-data-science' 'c-basic')
 
 # -- 1.3 Packages: development environments   ----------------------------------
-pkg_dev_jupyter=('jupyter' 'nodejs-basic')
+pkg_dev_jupyter=('jupyter' 'nodejs-basic' 'git')
 pkg_dev_theia=('wget' 'git')
 pkg_dev_cli=('vim' 'git' 'tmux' 'emacs')
 
