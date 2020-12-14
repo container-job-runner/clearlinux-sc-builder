@@ -50,6 +50,10 @@ if [ "$LANG_JULIA" = "TRUE" ] ; then
     if [ "$LIB_OPENMPI" = "TRUE" ] ; then
         julia -e 'ENV["JULIA_MPI_BINARY"]="system"; import Pkg; Pkg.add("MPI"); using MPI'
     fi
+    # ----> Jupyter kernel
+    if [ "$DEV_JUPYTER" = "TRUE" ] ; then
+        julia -e 'import Pkg; Pkg.add("IJulia")'    
+    fi
     # ----> fix permissions for non-local folders (see: https://github.com/JuliaLang/julia/issues/12876)
     if [ -n "$SHARED_STORAGE_DIR" ] ; then
         chown -R :shared "$JULIA_DEPOT_PATH"
@@ -57,16 +61,12 @@ if [ "$LANG_JULIA" = "TRUE" ] ; then
     fi
 fi
 
-# -- Juputer Kernels -----------------------------------------------------------
-if [ "$DEV_JUPYTER" = "TRUE" ] ; then
-  # ----> Julia
-  if [ "$LANG_JULIA" = "TRUE" ] ; then
-    julia -e 'import Pkg; Pkg.add("IJulia")'
-  fi
-  # ----> R
-  if [ "$LANG_R" = "TRUE" ] ; then
-    R -e "IRkernel::installspec()"
-  fi
+# -- R Packages ----------------------------------------------------------------
+if [ "$LANG_R" = "TRUE" ] ; then
+    # ----> Jupyter kernel
+    if [ "$DEV_JUPYTER" = "TRUE" ] ; then
+        R -e "IRkernel::installspec()"
+    fi
 fi
 
 # -- Spack ---------------------------------------------------------------------
